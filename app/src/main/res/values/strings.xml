@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">B07 Demo Summer 2024</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delete_item">Delete Item</string>
+    <string name="add_item">Add Item</string>
+    <string name="back">Back</string>
+    <string name="recyclerview">RecyclerView</string>
+    <string name="scroller">Scroller</string>
+    <string name="spinner">Spinner</string>
+    <string name="manage_items">Manage Items</string>
+
+    <string-array name="categories_array">
+        <item>Books</item>
+        <item>Movies</item>
+    </string-array>
+
+
+</resources>

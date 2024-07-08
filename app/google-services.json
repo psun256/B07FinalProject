@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "103450168850",
+    "project_id": "b07-demo-summer-2024",
+    "storage_bucket": "b07-demo-summer-2024.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103450168850:android:18be49669e0000df0552cb",
+        "android_client_info": {
+          "package_name": "com.example.b07demosummer2024"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNPIMxlsDkuYk5s1-Uycc9s8Hqz2YKIDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
