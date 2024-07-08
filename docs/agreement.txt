@@ -1,0 +1,52 @@
+## Team Agreement
+
+# Scrum Roles
+- Product Owner: Faisal Mehmood
+- Scrum Master: Paul Sun
+- Team Members: Mingyuan Zhao, Osman Okmen, Steve Nguyen, Yolanda Ling
+
+# Communication
+- Discord, In-person
+- Expected < 8h response time
+
+# Stand-up Meetings
+- Frequency: 5 / week
+- Monday: IC402 @ 1120
+- Tuesday: Online @ 1030
+- Wednesday: Online @ 1900
+- Thursday: Online @ 1330
+- Friday: Online @ 1730
+- Nature:
+    - Everybody will have to answer:
+        1. What have I accomplished since the previous meeting?
+        2. What will I finish before the next meeting?
+        3. What challenges / questions / concerns am I currently facing?
+    - Everyone should get an equal opportunity to speak.
+    - After each meeting, 1 member will make a summary of the meeting.
+        - The member writing this will rotate every meeting.
+
+# Contingency Plan
+- If < 70% of planned user stories are completed within a sprint, we will spend
+  an extra 5-10 minutes after next standup to discuss what went wrong and how
+  to recover.
+
+# Code Quality
+- All code must follow the team’s coding standards which includes: 
+    - Correct naming convention (Ex. camelCase for method names) 
+    - Clear documentation (comments for complex code, doc comments for each class). 
+- Code reviews to be completed before the end of each sprint. 
+
+# Version Control
+- Git
+- Every screen / new functionality will have its own feature and test branch.
+- All changes will be PRd. Must be reviewed by at least one other team member.
+
+# Other
+- Definition of done:
+    - Fully unit tested, if applicable
+    - Successfully integrated with rest of code
+    - Fully commented
+    - Peer reviewed
+- Important information + new updates will be pinned in Discord group chat.
+- Everyone should check Discord at least once a day to keep up with any new
+  developments.
