@@ -1,0 +1,85 @@
+B07 group project Meeting 1
+
+Date: 2024-07-08
+
+
+
+Paul:
+
+1. What have I accomplished since the previous meeting? N/A (first meeting)
+
+2. What will I finish before the next meeting?
+
+Going to figure out Firebase, and set up the emulator. etc..
+
+
+
+3. What challenges / questions / concerns am I currently facing?
+
+Has challenge with setting up emulator.
+
+
+
+Steve:
+
+1. What have I accomplished since the previous meeting? N/A (first meeting)
+
+2. What will I finish before the next meeting?
+
+Set up the emulator, finish the user stories, etc..
+
+
+
+3. What challenges / questions / concerns am I currently facing?
+
+Setting up emulator.
+
+
+Osman:
+
+1. What have I accomplished since the previous meeting? N/A (first meeting)
+
+2. What will I finish before the next meeting?
+
+Set up the emulator, download Android Studio.
+
+
+3. What challenges / questions / concerns am I currently facing?
+
+Setting up the emulator, getting a feel for Android studio, etc...
+
+
+
+Faisal:
+
+1. What have I accomplished since the previous meeting? N/A (first meeting)
+
+2. What will I finish before the next meeting?
+
+Set up the emulator, finish writing up the user story.
+
+
+3. What challenges / questions / concerns am I currently facing?
+
+Setting up the emulator.
+
+
+
+Yolanda:
+
+
+1. What have I accomplished since the previous meeting? N/A (first meeting)
+
+2. What will I finish before the next meeting?
+
+Set up the emulator, finish writing up the user story.
+
+
+3. What challenges / questions / concerns am I currently facing?
+
+Setting up the emulator.
+
+
+
+
+
