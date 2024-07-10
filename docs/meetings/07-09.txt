@@ -1,0 +1,7 @@
+Jul 9 Meeting
+
+Summary:
+- Everyone has set up android studio + the emulator
+- Firebase is set up + working on implementing as database in repo
+- Currently working on design of main screen
+- Before the next stand-up meeting, finish creating user stories in backlog
