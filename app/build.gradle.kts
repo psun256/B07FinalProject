@@ -1,14 +1,15 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.gms.google.services)
+
 }
 
 android {
-    namespace = "com.example.b07demosummer2024"
+    namespace = "org.group43.finalproject"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.b07demosummer2024"
+        applicationId = "org.group43.finalproject"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

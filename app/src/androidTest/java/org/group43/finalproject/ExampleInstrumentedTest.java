@@ -1,4 +1,4 @@
-package com.example.b07demosummer2024;
+package org.group43.finalproject;
 
 import android.content.Context;
 
