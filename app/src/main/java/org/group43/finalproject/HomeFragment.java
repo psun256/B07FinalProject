@@ -10,43 +10,53 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import org.group43.finalproject.R;
-
 public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
 
-        Button buttonRecyclerView = view.findViewById(R.id.buttonRecyclerView);
-        Button buttonScroller = view.findViewById(R.id.buttonScroller);
-        Button buttonSpinner = view.findViewById(R.id.buttonSpinner);
-        Button buttonManageItems = view.findViewById(R.id.buttonManageItems);
+        Button addButton = view.findViewById((R.id.addButton));
+        Button adminButton = view.findViewById((R.id.adminButton));
+        Button backButton = view.findViewById((R.id.backButton));
+        Button removeButton = view.findViewById((R.id.removeButton));
+        Button reportButton = view.findViewById(R.id.reportButton);
+        Button searchButton = view.findViewById((R.id.searchButton));
+        Button viewButton = view.findViewById((R.id.viewButton));
 
-        buttonRecyclerView.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                loadFragment(new RecyclerViewFragment());
-            }
+            public void onClick(View v) { loadFragment(new AddArtifactFragment());}
         });
 
-        buttonScroller.setOnClickListener(new View.OnClickListener() {
+        adminButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                loadFragment(new ScrollerFragment());
-            }
+            public void onClick(View v) { loadFragment(new AdminLoginFragment());}
         });
 
-        buttonSpinner.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                loadFragment(new SpinnerFragment());
-            }
+            public void onClick(View v) { loadFragment(new ExitAdminFragment());}
         });
 
-        buttonManageItems.setOnClickListener(new View.OnClickListener() {
+        removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { loadFragment(new ManageItemsFragment());}
+            public void onClick(View v) { loadFragment(new RemoveArtifactFragment());}
+        });
+
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { loadFragment(new CreateReportFragment());}
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { loadFragment(new SearchArtifactFragment());}
+        });
+
+        viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { loadFragment(new ViewArtifactFragment());}
         });
 
         return view;
