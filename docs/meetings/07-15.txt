@@ -1,0 +1,85 @@
+B07 group project Meeting 6
+
+Date: 2024-07-15
+
+
+
+Paul:
+
+1. What have I accomplished since the previous meeting? 
+- Trying to figure out firebase authentication. 
+
+2. What will I finish before the next meeting?
+- Hopefully get firebase authentication working. 
+- Assign story points/costs. 
+
+3. What challenges / questions / concerns am I currently facing?
+- Nothing 
+
+
+
+
+
+Steve:
+
+1. What have I accomplished since the previous meeting? 
+- Not much (studying for midterms) 
+
+2. What will I finish before the next meeting?
+- Get comfortable with Android studio & emulator. 
+
+3. What challenges / questions / concerns am I currently facing?
+- No. 
+
+
+
+
+Osman:
+
+1. What have I accomplished since the previous meeting? 
+
+2. What will I finish before the next meeting?
+
+3. What challenges / questions / concerns am I currently facing?
+
+
+
+
+
+Faisal:
+
+1. What have I accomplished since the previous meeting?
+- Chose story points/costs. 
+
+2. What will I finish before the next meeting?
+- Choose a user story to begin working on. 
+
+3. What challenges / questions / concerns am I currently facing?
+- Nothing. 
+
+
+
+Yolanda:
+
+
+1. What have I accomplished since the previous meeting?
+- Updated main screen UI (fragments). 
+
+2. What will I finish before the next meeting?
+- Choose a user story to work on. 
+
+3. What challenges / questions / concerns am I currently facing?
+- No challenges. 
+
+
+Mingyuan:
+
+1. What have I accomplished since the previous meeting?
+- Not much (studying for midterms)  
+
+2. What will I finish before the next meeting?
+- Choose a user story to work on. Assign story points/costs. 
+- Read up on android studio and firebase. 
+
+3. What challenges / questions / concerns am I currently facing?
+- No challenges. 
