@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.group43.finalproject.HomeFragment">
+    tools:context="org.group43.finalproject.fragments.HomeFragment">
 
     <Button
         android:id="@+id/reportButton"

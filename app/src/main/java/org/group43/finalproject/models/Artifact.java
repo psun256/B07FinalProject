@@ -1,4 +1,4 @@
-package org.group43.finalproject;
+package org.group43.finalproject.models;
 
 public class Artifact {
 

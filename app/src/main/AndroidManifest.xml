@@ -28,7 +28,7 @@
             android:name="org.group43.finalproject.RecyclerViewFragment"
             android:exported="false" />
         <activity
-            android:name="org.group43.finalproject.HomeFragment"
+            android:name="org.group43.finalproject.fragments.HomeFragment"
             android:exported="false" />
         <activity
             android:name=".Activity2"
