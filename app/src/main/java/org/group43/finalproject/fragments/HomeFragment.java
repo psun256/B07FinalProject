@@ -1,4 +1,4 @@
-package org.group43.finalproject;
+package org.group43.finalproject.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import org.group43.finalproject.R;
+import org.group43.finalproject.RemoveArtifactFragment;
+import org.group43.finalproject.SearchArtifactFragment;
+import org.group43.finalproject.ViewArtifactFragment;
 
 public class HomeFragment extends Fragment {
     @Nullable

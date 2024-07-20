@@ -1,4 +1,4 @@
-package org.group43.finalproject;
+package org.group43.finalproject.fragments;
 
 import android.os.Bundle;
 import android.view.*;
@@ -7,13 +7,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class AdminLoginFragment extends Fragment {
+import org.group43.finalproject.R;
+
+public class CreateReportFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_admin_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_report, container, false);
 
 
         return view;
     }
+
 }
