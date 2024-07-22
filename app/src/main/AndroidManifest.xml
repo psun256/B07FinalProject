@@ -17,34 +17,44 @@
         tools:targetApi="31">
         <activity
             android:name="org.group43.finalproject.Model.Admin"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name="org.group43.finalproject.Model.Artifact"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name="org.group43.finalproject.View.AddArtifactFragment"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name="org.group43.finalproject.View.AdminLoginFragment"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name="org.group43.finalproject.View.CreateReportFragment"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name="org.group43.finalproject.View.ExitAdminFragment"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name="org.group43.finalproject.View.HomeFragment"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name="org.group43.finalproject.View.RemoveArtifactFragment"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name="org.group43.finalproject.View.SearchArtifactFragment"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name="org.group43.finalproject.View.ViewArtifactFragment"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name="org.group43.finalproject.View.MainActivity"
             android:exported="true">
