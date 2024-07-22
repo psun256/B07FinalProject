@@ -1,5 +1,7 @@
 package org.group43.finalproject.Model;
 
+import java.io.File;
+
 public class Artifact {
 
     private int lotNumber;
@@ -7,17 +9,18 @@ public class Artifact {
     private String category;
     private String period;
     private String description;
-    //picture or video
+    private File file;
 
     public Artifact() {
     }
 
-    public Artifact(int lotNumber, String name, String category, String period, String description) {
+    public Artifact(int lotNumber, String name, String category, String period, String description, File file) {
         this.lotNumber = lotNumber;
         this.name = name;
         this.category = category;
         this.period = period;
         this.description = description;
+        this.file = file;
     }
 
     public int getLotNumber() {
@@ -57,4 +60,8 @@ public class Artifact {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public File getFile() { return file; }
+
+    public void setFile(File file) { this.file = file; }
 }
