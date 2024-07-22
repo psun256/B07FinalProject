@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"/>
 
     <application
         android:allowBackup="true"
@@ -13,28 +16,37 @@
         android:theme="@style/Theme.B07FinalProject"
         tools:targetApi="31">
         <activity
-            android:name=".ItemAdapater"
+            android:name="org.group43.finalproject.Model.Admin"
             android:exported="false" />
         <activity
-            android:name="org.group43.finalproject.Item"
+            android:name="org.group43.finalproject.Model.Artifact"
             android:exported="false" />
         <activity
-            android:name=".Item2"
+            android:name="org.group43.finalproject.View.AddArtifactFragment"
             android:exported="false" />
         <activity
-            android:name="org.group43.finalproject.SpinnerFragment"
+            android:name="org.group43.finalproject.View.AdminLoginFragment"
             android:exported="false" />
         <activity
-            android:name="org.group43.finalproject.RecyclerViewFragment"
+            android:name="org.group43.finalproject.View.CreateReportFragment"
             android:exported="false" />
         <activity
-            android:name="org.group43.finalproject.fragments.HomeFragment"
+            android:name="org.group43.finalproject.View.ExitAdminFragment"
             android:exported="false" />
         <activity
-            android:name=".Activity2"
+            android:name="org.group43.finalproject.View.HomeFragment"
             android:exported="false" />
         <activity
-            android:name="org.group43.finalproject.MainActivity"
+            android:name="org.group43.finalproject.View.RemoveArtifactFragment"
+            android:exported="false" />
+        <activity
+            android:name="org.group43.finalproject.View.SearchArtifactFragment"
+            android:exported="false" />
+        <activity
+            android:name="org.group43.finalproject.View.ViewArtifactFragment"
+            android:exported="false" />
+        <activity
+            android:name="org.group43.finalproject.View.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package org.group43.finalproject.fragments;
+package org.group43.finalproject.View;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,9 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import org.group43.finalproject.R;
-import org.group43.finalproject.RemoveArtifactFragment;
-import org.group43.finalproject.SearchArtifactFragment;
-import org.group43.finalproject.ViewArtifactFragment;
 
 public class HomeFragment extends Fragment {
     @Nullable
@@ -31,7 +28,7 @@ public class HomeFragment extends Fragment {
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { loadFragment(new AddArtifactFragment());}
+            public void onClick(View v) { loadFragment(new AddArtifactFragment1());}
         });
 
         adminButton.setOnClickListener(new View.OnClickListener() {
