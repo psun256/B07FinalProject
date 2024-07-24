@@ -18,9 +18,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import org.group43.finalproject.Presenter.AddArtifactPresenter;
 import org.group43.finalproject.R;
 
@@ -32,17 +29,14 @@ public class AddArtifactFragment extends Fragment {
     private EditText editLotNum;
     private EditText editName;
     private EditText editDesc;
-
     private TextView textFileName;
 
     private Button addButton;
     private Button uploadButton;
-
     private Spinner editCategory;
     private Spinner editPeriod;
 
     private AddArtifactPresenter addArtifactPresenter;
-
     private Uri fileUri;
 
     @Nullable
@@ -64,12 +58,12 @@ public class AddArtifactFragment extends Fragment {
         addArtifactPresenter = new AddArtifactPresenter(this);
 
         //set up drop-down menu for category + period
-        ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getContext(),
+        ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(requireContext(),
                 R.array.categories, android.R.layout.simple_spinner_item);
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editCategory.setAdapter(adapterCategory);
 
-        ArrayAdapter<CharSequence> adapterPeriod = ArrayAdapter.createFromResource(getContext(),
+        ArrayAdapter<CharSequence> adapterPeriod = ArrayAdapter.createFromResource(requireContext(),
                 R.array.periods, android.R.layout.simple_spinner_item);
         adapterPeriod.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editPeriod.setAdapter(adapterPeriod);
@@ -83,24 +77,14 @@ public class AddArtifactFragment extends Fragment {
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             activity.getSupportActionBar().setHomeButtonEnabled(true);
             activity.getSupportActionBar().setTitle("Add Artifact");
-            Objects.requireNonNull(addArtifactToolbar.getNavigationIcon()).setColorFilter(ContextCompat.getColor(getContext(),
+            Objects.requireNonNull(addArtifactToolbar.getNavigationIcon()).setColorFilter(ContextCompat.getColor(requireContext(),
                     R.color.backgroundLight), PorterDuff.Mode.SRC_IN);
         }
 
-        addArtifactToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().onBackPressed();
-            }
-        });
+        addArtifactToolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
 
         uploadButton.setOnClickListener(v -> chooseFile());
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addArtifactPresenter.uploadArtifactToDB(fileUri);
-            }
-        });
+        addButton.setOnClickListener(v -> addArtifactPresenter.addArtifact(fileUri));
 
         return view;
     }
@@ -124,29 +108,11 @@ public class AddArtifactFragment extends Fragment {
     public void showFileName(String fileName) {
         if (!fileName.isEmpty()) {
             textFileName.setText(fileName);
-        } else {
-            textFileName.setText(getResources().getString(R.string.defaultFile));
         }
     }
 
-    public void showUploadError() {
-        Toast.makeText(getContext(), "Error - File not uploaded", Toast.LENGTH_SHORT).show();
-    }
-
-    public void showUploadSuccess() {
-        Toast.makeText(getContext(), "File successfully uploaded!", Toast.LENGTH_SHORT).show();
-    }
-
-    public void showIncompleteFields() {
-        Toast.makeText(getContext(), "Please fill out all fields!", Toast.LENGTH_SHORT).show();
-    }
-
-    public void showInvalidFile() {
-        Toast.makeText(getContext(), "Please upload an image or video file!", Toast.LENGTH_SHORT).show();
-    }
-
-    public void showInvalidLotNumber() {
-        Toast.makeText(getContext(), "Lot number is already taken", Toast.LENGTH_SHORT).show();
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     public EditText getEditLotNum() {

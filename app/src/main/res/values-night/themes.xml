@@ -1,5 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Base.Theme.B07FinalProject" parent="Theme.Material3.DayNight.NoActionBar">
-
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="android:windowBackground">@color/backgroundNight</item>
     </style>
 </resources>
