@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { loadFragment(new AddArtifactFragment1());}
+            public void onClick(View v) { loadFragment(new AddArtifactFragment());}
         });
 
         adminButton.setOnClickListener(new View.OnClickListener() {

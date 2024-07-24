@@ -7,12 +7,14 @@
     <string name="defaultFile">No File Uploaded</string>
     <string name="desc">Description</string>
     <string name="fileNameHeader">File Uploaded:</string>
+    <string name="image">image</string>
     <string name="lotNum">Lot Number</string>
     <string name="name">Name</string>
     <string name="period">Period</string>
     <string name="remove">Remove</string>
     <string name="report">Report</string>
     <string name="search">Search</string>
+    <string name="video">video</string>
     <string name="view">View</string>
     <string name="uploadPicVid">Upload Picture/Video</string>
 

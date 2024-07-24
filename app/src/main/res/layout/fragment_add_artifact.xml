@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:maxButtonHeight="60dp"
+        app:maxButtonHeight="70dp"
         app:navigationIcon="@drawable/baseline_clear_24"
         app:title="Add Artifact"
         app:titleTextColor="@color/backgroundLight" />
@@ -101,7 +101,7 @@
             android:minHeight="48dp" />
 
         <Button
-            android:id="@+id/uploadPicVid"
+            android:id="@+id/uploadButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/uploadPicVid" />
@@ -121,7 +121,7 @@
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/fileName"
+                android:id="@+id/textFileName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/defaultFile"
