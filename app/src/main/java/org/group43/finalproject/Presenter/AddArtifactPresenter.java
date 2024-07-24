@@ -18,21 +18,11 @@ import java.util.Objects;
 
 public class AddArtifactPresenter {
     private final AddArtifactFragment view;
-    private final FirebaseDatabase db;
-    private final ContentResolver contentRes;
-    private DatabaseReference dbRef;
-    private FirebaseStorage storage;
-    private StorageReference storageRef;
-    private StorageReference artifactRef;
+    private ContentResolver contentRes;
 
-    public AddArtifactPresenter(AddArtifactFragment view, FirebaseDatabase db, DatabaseReference dbRef) {
+    public AddArtifactPresenter(AddArtifactFragment view) {
         this.view = view;
-        this.db = db;
         this.contentRes = view.requireActivity().getContentResolver();
-        this.dbRef = dbRef;
-        this.storage = null;
-        this.storageRef = null;
-        this.artifactRef = null;
     }
 
     public void filePicked(Uri uri) {
@@ -46,8 +36,6 @@ public class AddArtifactPresenter {
     }
 
     public void uploadArtifactToDB(Uri fileUri) {
-        storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReference();
         Artifact artifact = createArtifact(fileUri);
 
         if (artifact == null) {
@@ -57,7 +45,8 @@ public class AddArtifactPresenter {
 
         uploadMediaToStorage(fileUri, artifact);
 
-        dbRef = db.getReference("artifacts/" + artifact.getLotNumber());
+        FirebaseDatabase db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
+        DatabaseReference dbRef = db.getReference("artifacts/" + artifact.getLotNumber());
         String id = dbRef.push().getKey();
 
         dbRef.child(Objects.requireNonNull(id)).setValue(artifact).addOnCompleteListener(task -> {
@@ -82,6 +71,10 @@ public class AddArtifactPresenter {
     }
 
     private void uploadMediaToStorage(Uri fileUri, Artifact artifact) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference artifactRef;
+
         if (artifact.getFileType().equals(view.getString(R.string.image))) {
             artifactRef = storageRef.child("img/" + artifact.getFile());
         } else {
@@ -113,10 +106,10 @@ public class AddArtifactPresenter {
         String mimeType = contentRes.getType(fileUri);
         String fileType;
 
-        if (Objects.requireNonNull(mimeType).contains(view.getString(R.string.image))) {
-            fileType = view.getString(R.string.image);
+        if (Objects.requireNonNull(mimeType).contains("image")) {
+            fileType = "image";
         } else {
-            fileType = view.getString(R.string.video);
+            fileType = "video";
         }
 
         return new Artifact(lotNum, name, category, period, desc, fileName, fileType);

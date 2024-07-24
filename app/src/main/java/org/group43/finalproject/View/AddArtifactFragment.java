@@ -41,9 +41,6 @@ public class AddArtifactFragment extends Fragment {
     private Spinner editCategory;
     private Spinner editPeriod;
 
-    private FirebaseDatabase db;
-    private DatabaseReference dbRef;
-
     private AddArtifactPresenter addArtifactPresenter;
 
     private Uri fileUri;
@@ -64,8 +61,7 @@ public class AddArtifactFragment extends Fragment {
         editPeriod = view.findViewById(R.id.editPeriod);
         fileUri = null;
 
-        addArtifactPresenter = new AddArtifactPresenter(this, db, dbRef);
-        db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
+        addArtifactPresenter = new AddArtifactPresenter(this);
 
         //set up drop-down menu for category + period
         ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getContext(),
