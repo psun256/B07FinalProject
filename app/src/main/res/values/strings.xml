@@ -3,10 +3,52 @@
     <string name="admin">Admin</string>
     <string name="app_name">TAAM Collection Management</string>
     <string name="back">Back</string>
+    <string name="category">Category</string>
+    <string name="defaultFile">No File Uploaded</string>
+    <string name="desc">Description</string>
+    <string name="fileNameHeader">File Uploaded:</string>
+    <string name="lotNum">Lot Number</string>
+    <string name="name">Name</string>
+    <string name="period">Period</string>
     <string name="remove">Remove</string>
     <string name="report">Report</string>
     <string name="search">Search</string>
     <string name="view">View</string>
+    <string name="uploadPicVid">Upload Picture/Video</string>
 
+    <string-array name="categories">
+        <item>Brass</item>
+        <item>Bronze</item>
+        <item>Calligraphy</item>
+        <item>Copper</item>
+        <item>Enamel</item>
+        <item>Gold and Silver</item>
+        <item>Jade</item>
+        <item>Lacquer</item>
+        <item>Painting</item>
+        <item>Rubbings</item>
+    </string-array>
+
+    <string-array name="periods">
+        <item>Xia</item>
+        <item>Shang</item>
+        <item>Zhou</item>
+        <item>Chunqiu</item>
+        <item>Zhanguo</item>
+        <item>Qin</item>
+        <item>Han</item>
+        <item>Shang</item>
+        <item>Ji</item>
+        <item>South and North</item>
+        <item>Sui</item>
+        <item>Tang</item>
+        <item>Liao</item>
+        <item>Song</item>
+        <item>Jin</item>
+        <item>Yuan</item>
+        <item>Ming</item>
+        <item>Qing</item>
+        <item>Modern</item>
+    </string-array>
 
 </resources>
