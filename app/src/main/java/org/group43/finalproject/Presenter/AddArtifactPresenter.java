@@ -1,48 +1,119 @@
 package org.group43.finalproject.Presenter;
 
 import android.content.ContentResolver;
+import android.database.Cursor;
 import android.net.Uri;
+import android.provider.OpenableColumns;
 
-import androidx.documentfile.provider.DocumentFile;
+import androidx.annotation.NonNull;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.group43.finalproject.Model.Artifact;
+import org.group43.finalproject.Model.Category;
 import org.group43.finalproject.R;
 import org.group43.finalproject.View.AddArtifactFragment;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class AddArtifactPresenter {
     private final AddArtifactFragment view;
     private final ContentResolver contentRes;
+    private FirebaseDatabase db;
+    private DatabaseReference dbRef;
 
     public AddArtifactPresenter(AddArtifactFragment view) {
         this.view = view;
         this.contentRes = view.requireActivity().getContentResolver();
     }
 
+    public ArrayList<String> getCategories() {
+        ArrayList<String> categories = new ArrayList<>();
+
+        db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
+        dbRef = db.getReference("categories/");
+
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String category = snapshot.getKey();
+
+                    if (!categories.contains(category)) {
+                        categories.add(snapshot.getKey());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return categories;
+    }
+
     public void filePicked(Uri uri) {
-        String fileName = getFileName(uri);
+        Cursor cursor = contentRes.query(uri, null, null, null, null);
+        int nameIndex = Objects.requireNonNull(cursor).getColumnIndex(OpenableColumns.DISPLAY_NAME);
+        int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
+        cursor.moveToFirst();
+
+        String fileName = cursor.getString(nameIndex);
 
         if (fileName != null) {
-            view.showFileName(fileName);
+            view.showFileInfo(fileName, fileSizeToString(cursor.getLong(sizeIndex)));
             view.showMessage(fileName + " successfully uploaded!");
         } else {
             view.showMessage("Error - Cannot upload invalid file");
         }
     }
 
+    public String fileSizeToString(long fileSize) {
+        if (fileSize > 1000000) {
+            return ((double) fileSize / 1000000) + "GB";
+        }
+
+        return ((double) fileSize / 1000) + "KB";
+    }
+
     public void addArtifact(Uri fileUri) {
-        if (!isArtifactValid()) {
+        if (!checkEmptyFields()) {
             return;
         }
 
         Artifact artifact = createArtifact(fileUri);
-        uploadMediaToStorage(fileUri, artifact);
+        db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
+        dbRef = db.getReference("artifacts/");
+        Query query = dbRef.orderByChild("lotNumber/").equalTo(artifact.getLotNumber());
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    view.showMessage("Lot number is already taken! Artifact not added.");
+                } else {
+                    if (!artifact.getFile().isEmpty()) {
+                        uploadMediaToStorage(fileUri, artifact);
+                    } else {
+                        uploadArtifactToDB(artifact);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void uploadMediaToStorage(Uri fileUri, Artifact artifact) {
@@ -56,77 +127,69 @@ public class AddArtifactPresenter {
             artifactRef = storageRef.child("vid/" + artifact.getFile());
         }
 
-        artifactRef.putFile(fileUri).addOnSuccessListener(taskSnapshot -> artifactRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    //String downloadUrl = uri.toString();
-                    uploadArtifactToDB(artifact);
-                }))
-                .addOnFailureListener(e -> view.showMessage("Error - " + artifact.getFile() + " was not uploaded. Artifact was not added."));
+        artifactRef.putFile(fileUri)
+                .addOnSuccessListener(taskSnapshot -> artifactRef
+                        .getDownloadUrl().addOnSuccessListener(uri -> {
+                            //String downloadUrl = uri.toString();
+                            uploadArtifactToDB(artifact);
+                        }))
+                .addOnFailureListener(e -> view
+                        .showMessage("Error: " + artifact.getFile() + " was not uploaded. Artifact not added."));
     }
 
     public void uploadArtifactToDB(Artifact artifact) {
-        FirebaseDatabase db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
-        DatabaseReference dbRef = db.getReference("artifacts/" + artifact.getLotNumber());
+        db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
+        dbRef = db.getReference("artifacts/");
         String id = dbRef.push().getKey();
 
         dbRef.child(Objects.requireNonNull(id)).setValue(artifact).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 view.showMessage("Artifact successfully added!");
+                updateCategories(artifact);
             } else {
-                view.showMessage("Error - Artifact cannot be added");
+                view.showMessage("Error: Artifact was not added.");
             }
         });
-    }
-
-    public String getFileName(Uri uri) {
-        DocumentFile documentFile;
-
-        if (uri != null && "content".equals(uri.getScheme())) {
-            documentFile = DocumentFile.fromSingleUri(view.requireActivity(), uri);
-            return Objects.requireNonNull(documentFile).getName();
-        }
-
-        return null;
     }
 
     private Artifact createArtifact(Uri fileUri) {
         int lotNum = Integer.parseInt(view.getEditLotNum().getText().toString().trim());
         String name = view.getEditName().getText().toString().trim();
-        String category = view.getEditCategory().getSelectedItem().toString().trim();
+        String category = view.getEditCategory().getText().toString().trim();
         String period = view.getEditPeriod().getSelectedItem().toString().trim();
         String desc = view.getEditDesc().getText().toString().trim();
         String fileName = view.getTextFileName().getText().toString().trim();
-        String mimeType = contentRes.getType(fileUri);
-        String fileType;
+        String fileType = "";
+        String mimeType;
 
-        if (Objects.requireNonNull(mimeType).contains("image")) {
-            fileType = "image";
-        } else {
-            fileType = "video";
+        if (fileUri != null) {
+            mimeType = contentRes.getType(fileUri);
+            if (Objects.requireNonNull(mimeType).contains("image")) {
+                fileType = "image";
+            } else {
+                fileType = "video";
+            }
         }
 
         return new Artifact(lotNum, name, category, period, desc, fileName, fileType);
     }
 
-    private boolean isArtifactValid() {
+    private boolean checkEmptyFields() {
         if (view.getEditLotNum().getText().toString().trim().isEmpty() ||
                 view.getEditName().getText().toString().trim().isEmpty() ||
-                view.getEditDesc().getText().toString().trim().isEmpty() ||
-                view.getTextFileName().getText().toString().trim().isEmpty()) {
+                view.getEditDesc().getText().toString().trim().isEmpty()) {
             view.showMessage("Please fill out all fields!");
-            return false;
-        }
-        if (lotNumExists(Integer.parseInt(view.getEditLotNum().getText().toString().trim()))) {
-            view.showMessage("Lot number is already taken");
             return false;
         }
 
         return true;
     }
 
-    private boolean lotNumExists(int lotNum) {
-        // check if an artifact w lot number lotNum already exists
+    private void updateCategories(Artifact artifact) {
+        db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
+        dbRef = db.getReference("categories/");
 
-        return false;
+        dbRef.child(artifact.getCategory()).setValue(new Category(artifact.getCategory()));
     }
 
 }

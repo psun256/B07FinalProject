@@ -26,22 +26,25 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="400dp"
+        android:layout_height="535dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="100dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addArtifactToolbar">
+        app:layout_constraintTop_toBottomOf="@+id/addArtifactToolbar"
+        app:layout_constraintVertical_bias="0.0">
 
         <EditText
             android:id="@+id/editLotNum"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:width="480dp"
+            android:width="488dp"
             android:height="48dp"
             android:ems="10"
             android:hint="@string/lotNum"
@@ -51,8 +54,9 @@
 
         <EditText
             android:id="@+id/editName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="488dp"
             android:height="48dp"
             android:ems="10"
             android:hint="@string/name"
@@ -60,56 +64,56 @@
             android:maxWidth="488dp"
             android:minHeight="48dp" />
 
-        <TextView
-            android:id="@+id/categoryHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/category" />
-
-        <Spinner
+        <AutoCompleteTextView
             android:id="@+id/editCategory"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:width="488dp"
             android:dropDownWidth="wrap_content"
-            android:entries="@array/categories"
-            android:spinnerMode="dropdown" />
+            android:dropDownHeight="wrap_content"
+            android:hint="@string/category" />
 
         <TextView
             android:id="@+id/periodHeader"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="488dp"
             android:text="@string/period" />
 
         <Spinner
             android:id="@+id/editPeriod"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:dropDownWidth="150dp"
             android:entries="@array/periods"
-            android:minHeight="48dp"
-            android:spinnerMode="dropdown" />
+            android:minWidth="488dp" />
 
         <EditText
             android:id="@+id/editDescription"
-            android:layout_width="match_parent"
-            android:layout_height="201dp"
+            android:layout_width="wrap_content"
+            android:layout_height="210dp"
+            android:width="488dp"
             android:height="300dp"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/desc"
             android:inputType="textMultiLine"
+            android:maxWidth="488dp"
             android:maxHeight="300dp"
             android:minHeight="48dp" />
 
         <Button
             android:id="@+id/uploadButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:width="320dp"
+            android:maxWidth="320dp"
             android:text="@string/uploadPicVid" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="488dp"
             android:orientation="horizontal"
             android:paddingStart="10dp"
             android:paddingEnd="10dp">
@@ -124,7 +128,7 @@
             <TextView
                 android:id="@+id/textFileName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="43dp"
                 android:hint="@string/defaultFile"
                 android:textAlignment="textStart"
                 android:translationX="5dp" />
@@ -146,7 +150,9 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.611" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

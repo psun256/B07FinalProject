@@ -29,12 +29,12 @@ public class AddArtifactFragment extends Fragment {
     private EditText editLotNum;
     private EditText editName;
     private EditText editDesc;
+    private AutoCompleteTextView editCategory;
+    private Spinner editPeriod;
     private TextView textFileName;
 
     private Button addButton;
     private Button uploadButton;
-    private Spinner editCategory;
-    private Spinner editPeriod;
 
     private AddArtifactPresenter addArtifactPresenter;
     private Uri fileUri;
@@ -57,16 +57,11 @@ public class AddArtifactFragment extends Fragment {
 
         addArtifactPresenter = new AddArtifactPresenter(this);
 
-        //set up drop-down menu for category + period
-        ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(requireContext(),
-                R.array.categories, android.R.layout.simple_spinner_item);
-        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        editCategory.setAdapter(adapterCategory);
-
-        ArrayAdapter<CharSequence> adapterPeriod = ArrayAdapter.createFromResource(requireContext(),
-                R.array.periods, android.R.layout.simple_spinner_item);
-        adapterPeriod.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        editPeriod.setAdapter(adapterPeriod);
+        //set up dropdown menu for category
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this.requireContext(),
+                android.R.layout.simple_dropdown_item_1line, addArtifactPresenter.getCategories());
+        editCategory.setAdapter(categoryAdapter);
+        editCategory.showDropDown();
 
         //set up toolbar
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -97,17 +92,18 @@ public class AddArtifactFragment extends Fragment {
         pickFile.launch(intent);
     }
 
-    private final ActivityResultLauncher<Intent> pickFile = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result -> {
+    private final ActivityResultLauncher<Intent> pickFile = registerForActivityResult(new ActivityResultContracts
+                    .StartActivityForResult(), result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     fileUri = result.getData().getData();
                     addArtifactPresenter.filePicked(fileUri);
                 }
             });
 
-    public void showFileName(String fileName) {
+    public void showFileInfo(String fileName, String fileSize) {
         if (!fileName.isEmpty()) {
-            textFileName.setText(fileName);
+            String fileInfo = fileName + " (" + fileSize + ")";
+            textFileName.setText(fileInfo);
         }
     }
 
@@ -123,7 +119,7 @@ public class AddArtifactFragment extends Fragment {
         return editName;
     }
 
-    public Spinner getEditCategory() {
+    public AutoCompleteTextView getEditCategory() {
         return editCategory;
     }
 
@@ -138,4 +134,5 @@ public class AddArtifactFragment extends Fragment {
     public TextView getTextFileName() {
         return textFileName;
     }
+
 }
