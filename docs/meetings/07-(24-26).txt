@@ -1,0 +1,9 @@
+Jul 24-26 Meetings
+
+Summary:
+- Continue working on assigned user stories
+- B07FIN12: 
+	- Created branch for feature
+	- Fixed crashes after attempting to add an item
+	- Fixed users from adding items w duplicate lot #s, can now add a new artifact category 
+		- Category section was added to db to keep track of current categories

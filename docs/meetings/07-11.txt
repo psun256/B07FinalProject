@@ -1,0 +1,8 @@
+Jul 11 Meeting
+
+Summary:
+- Refactored package names + db
+- Working on figuring out authentication system for Firebase
+- Assigned user points to user stories
+- Began testing fragments + Layout Editor in Android Studio
+- Mostly continue plans from previous stand-up meeting
