@@ -1,0 +1,7 @@
+Jul 17-19 Meetings
+
+(Many didn't work on much b/c of upcoming midterms so summary is combined into one)
+ 
+Summary:
+- Continue assigning story points (take median from everyone's opinion)
+- Created pr for minor refactoring + error fixes in project

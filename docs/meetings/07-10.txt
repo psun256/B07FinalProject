@@ -1,0 +1,8 @@
+Jul 10 Meeting
+
+Summary:
+- Firebase successfully linked to project
+- Added + modified user stories on Jira
+- Created design prototype for main screen
+- Still working on learning + getting used to Android Studio
+- Everyone is currently working on starting user stories + assigning story points

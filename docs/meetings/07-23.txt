@@ -1,0 +1,7 @@
+Jul 23 Meeting
+
+Summary:
+- Updated Jira story points + user stories for this sprint
+- Created pr for minor changes to package structure + strings.xml
+- B07FIN12: Adding items now update the db (including images/videos)
+- Discussed how to store media files in Firebase Storage + how to arrange artifacts in the db
