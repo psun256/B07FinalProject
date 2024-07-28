@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -54,21 +55,32 @@ public class ArtifactTableFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Artifact artifact = Objects.requireNonNull(snapshot.getValue(Artifact.class));
                     TableRow row = new TableRow(getContext());
+                    row.setPadding(2, 3, 2, 3);
+
+                    TableRow.LayoutParams textParams = new TableRow.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            0.25f
+                    );
 
                     TextView lotNumText = new TextView(getContext());
                     lotNumText.setText(String.valueOf(artifact.getLotNumber()));
+                    lotNumText.setLayoutParams(textParams);
                     row.addView(lotNumText);
 
                     TextView nameText = new TextView(getContext());
                     nameText.setText(artifact.getName());
+                    nameText.setLayoutParams(textParams);
                     row.addView(nameText);
 
                     TextView categoryText = new TextView(getContext());
                     categoryText.setText(artifact.getCategory());
+                    categoryText.setLayoutParams(textParams);
                     row.addView(categoryText);
 
                     TextView periodText = new TextView(getContext());
                     periodText.setText(artifact.getPeriod());
+                    periodText.setLayoutParams(textParams);
                     row.addView(periodText);
 
                     table.addView(row);
