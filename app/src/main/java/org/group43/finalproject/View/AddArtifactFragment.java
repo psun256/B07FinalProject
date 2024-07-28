@@ -61,7 +61,6 @@ public class AddArtifactFragment extends Fragment {
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this.requireContext(),
                 android.R.layout.simple_dropdown_item_1line, addArtifactPresenter.getCategories());
         editCategory.setAdapter(categoryAdapter);
-        editCategory.showDropDown();
 
         //set up toolbar
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -71,11 +70,11 @@ public class AddArtifactFragment extends Fragment {
             activity.setSupportActionBar(addArtifactToolbar);
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             activity.getSupportActionBar().setHomeButtonEnabled(true);
-            activity.getSupportActionBar().setTitle("Add Artifact");
-            Objects.requireNonNull(addArtifactToolbar.getNavigationIcon()).setColorFilter(ContextCompat.getColor(requireContext(),
-                    R.color.backgroundLight), PorterDuff.Mode.SRC_IN);
+            activity.getSupportActionBar().setTitle(getResources().getText(R.string.addArtifact));
+            Objects.requireNonNull(addArtifactToolbar.getNavigationIcon())
+                    .setColorFilter(ContextCompat.getColor(requireContext(),
+                            R.color.backgroundLight), PorterDuff.Mode.SRC_IN);
         }
-
         addArtifactToolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
 
         uploadButton.setOnClickListener(v -> chooseFile());
@@ -93,17 +92,16 @@ public class AddArtifactFragment extends Fragment {
     }
 
     private final ActivityResultLauncher<Intent> pickFile = registerForActivityResult(new ActivityResultContracts
-                    .StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    fileUri = result.getData().getData();
-                    addArtifactPresenter.filePicked(fileUri);
-                }
-            });
+            .StartActivityForResult(), result -> {
+        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+            fileUri = result.getData().getData();
+            addArtifactPresenter.filePicked(fileUri);
+        }
+    });
 
-    public void showFileInfo(String fileName, String fileSize) {
+    public void showFileInfo(String fileName) {
         if (!fileName.isEmpty()) {
-            String fileInfo = fileName + " (" + fileSize + ")";
-            textFileName.setText(fileInfo);
+            textFileName.setText(fileName);
         }
     }
 

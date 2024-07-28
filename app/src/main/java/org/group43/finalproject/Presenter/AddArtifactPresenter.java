@@ -48,7 +48,7 @@ public class AddArtifactPresenter {
                     String category = snapshot.getKey();
 
                     if (!categories.contains(category)) {
-                        categories.add(snapshot.getKey());
+                        categories.add(category);
                     }
                 }
             }
@@ -64,25 +64,15 @@ public class AddArtifactPresenter {
     public void filePicked(Uri uri) {
         Cursor cursor = contentRes.query(uri, null, null, null, null);
         int nameIndex = Objects.requireNonNull(cursor).getColumnIndex(OpenableColumns.DISPLAY_NAME);
-        int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
         cursor.moveToFirst();
 
         String fileName = cursor.getString(nameIndex);
-
         if (fileName != null) {
-            view.showFileInfo(fileName, fileSizeToString(cursor.getLong(sizeIndex)));
+            view.showFileInfo(fileName);
             view.showMessage(fileName + " successfully uploaded!");
         } else {
-            view.showMessage("Error - Cannot upload invalid file");
+            view.showMessage("Error: Cannot upload file");
         }
-    }
-
-    public String fileSizeToString(long fileSize) {
-        if (fileSize > 1000000) {
-            return ((double) fileSize / 1000000) + "GB";
-        }
-
-        return ((double) fileSize / 1000) + "KB";
     }
 
     public void addArtifact(Uri fileUri) {
@@ -129,10 +119,8 @@ public class AddArtifactPresenter {
 
         artifactRef.putFile(fileUri)
                 .addOnSuccessListener(taskSnapshot -> artifactRef
-                        .getDownloadUrl().addOnSuccessListener(uri -> {
-                            //String downloadUrl = uri.toString();
-                            uploadArtifactToDB(artifact);
-                        }))
+                        .getDownloadUrl()
+                        .addOnSuccessListener(uri -> uploadArtifactToDB(artifact)))
                 .addOnFailureListener(e -> view
                         .showMessage("Error: " + artifact.getFile() + " was not uploaded. Artifact not added."));
     }
