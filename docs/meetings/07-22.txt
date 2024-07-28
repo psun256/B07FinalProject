@@ -1,0 +1,62 @@
+
+Paul:
+
+1. What have I accomplished since the previous meeting?
+
+2. What will I finish before the next meeting?
+Continue working on admin login / logout system.
+
+3. What challenges / questions / concerns am I currently facing?
+Not sure what exactly needs to be in a report.
+
+
+Steve:
+
+1. What have I accomplished since the previous meeting?
+
+2. What will I finish before the next meeting?
+Start working on search functionality.
+
+3. What challenges / questions / concerns am I currently facing?
+
+Osman:
+
+1. What have I accomplished since the previous meeting?
+Familiarizing myself with android studio.
+
+2. What will I finish before the next meeting?
+Start working on remove functionality.
+
+3. What challenges / questions / concerns am I currently facing?
+
+
+Faisal:
+
+1. What have I accomplished since the previous meeting?
+
+2. What will I finish before the next meeting?
+
+3. What challenges / questions / concerns am I currently facing?
+
+
+Yolanda:
+
+1. What have I accomplished since the previous meeting?
+Attaching media works now.
+
+2. What will I finish before the next meeting?
+Start working on actually uploading them (db related work)
+
+3. What challenges / questions / concerns am I currently facing?
+
+
+Mingyuan:
+
+1. What have I accomplished since the previous meeting?
+Added some sample data into firebase; working on the item table.
+
+2. What will I finish before the next meeting?
+Continue working on the item table.
+
+3. What challenges / questions / concerns am I currently facing?
+Not sure about how we should represent image/video in the model

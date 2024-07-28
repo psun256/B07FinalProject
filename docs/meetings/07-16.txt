@@ -1,0 +1,6 @@
+Jul 16 Meeting
+
+Summary:
+- Began assigning user stories to members
+- Starting working on user stories
+- Figured out authentication system
