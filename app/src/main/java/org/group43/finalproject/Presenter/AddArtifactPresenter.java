@@ -45,7 +45,8 @@ public class AddArtifactPresenter {
 
         uploadMediaToStorage(fileUri, artifact);
 
-        FirebaseDatabase db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
+        FirebaseDatabase db = FirebaseDatabase.getInstance(
+                "https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
         DatabaseReference dbRef = db.getReference("artifacts/" + artifact.getLotNumber());
         String id = dbRef.push().getKey();
 
@@ -125,7 +126,8 @@ public class AddArtifactPresenter {
             view.showIncompleteFields();
             return false;
         }
-        if (mimeType == null || !Objects.requireNonNull(mimeType).contains(view.getString(R.string.image)) &&
+        if (mimeType == null || !Objects.requireNonNull(mimeType)
+                .contains(view.getString(R.string.image)) &&
                 !mimeType.contains(view.getString(R.string.video))) {
             view.showInvalidFile();
             return false;
