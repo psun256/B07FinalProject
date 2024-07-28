@@ -1,7 +1,5 @@
 package org.group43.finalproject.Model;
 
-import java.io.File;
-
 public class Artifact {
 
     private int lotNumber;
@@ -11,9 +9,6 @@ public class Artifact {
     private String description;
     private String file;
     private String fileType;
-
-    public Artifact() {
-    }
 
     public Artifact(int lotNumber, String name, String category, String period, String description, String file, String fileType) {
         this.lotNumber = lotNumber;

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="backgroundLight">#FFF5F0EB</color>
-    <color name="primary">#FFC2A86C</color>
+    <color name="backgroundLight">#FFFCFAF7</color>
+    <color name="backgroundNight">#FF323232</color>
+    <color name="primary">#FFC8A566</color>
+    <color name="primaryDark">#FF856B00</color>
 </resources>
