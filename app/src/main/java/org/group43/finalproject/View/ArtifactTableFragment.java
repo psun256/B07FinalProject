@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -48,7 +49,8 @@ public class ArtifactTableFragment extends Fragment {
         FirebaseDatabase db = FirebaseDatabase.getInstance(
                 "https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
         DatabaseReference artifactsRef = db.getReference("artifacts/");
-        artifactsRef.addValueEventListener(new ValueEventListener() {
+
+        artifactsRef.orderByChild("lotNumber").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 table.removeAllViews();
@@ -56,6 +58,16 @@ public class ArtifactTableFragment extends Fragment {
                     Artifact artifact = Objects.requireNonNull(snapshot.getValue(Artifact.class));
                     TableRow row = new TableRow(getContext());
                     row.setPadding(2, 3, 2, 3);
+
+                    TableRow.LayoutParams checkBoxParams = new TableRow.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            0.08f
+                    );
+
+                    CheckBox checkBox = new CheckBox(getContext());
+                    checkBox.setLayoutParams(checkBoxParams);
+                    row.addView(checkBox);
 
                     TableRow.LayoutParams textParams = new TableRow.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
