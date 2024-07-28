@@ -82,10 +82,9 @@ public class AddArtifactPresenter {
 
         Artifact artifact = createArtifact(fileUri);
         db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
-        dbRef = db.getReference("artifacts/");
-        Query query = dbRef.orderByChild("lotNumber/").equalTo(artifact.getLotNumber());
+        dbRef = db.getReference("artifacts/" + artifact.getLotNumber());
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -128,9 +127,10 @@ public class AddArtifactPresenter {
     public void uploadArtifactToDB(Artifact artifact) {
         db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
         dbRef = db.getReference("artifacts/");
-        String id = dbRef.push().getKey();
 
-        dbRef.child(Objects.requireNonNull(id)).setValue(artifact).addOnCompleteListener(task -> {
+        dbRef.child(String.valueOf(artifact.getLotNumber()))
+                .setValue(artifact)
+                .addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 view.showMessage("Artifact successfully added!");
                 updateCategories(artifact);
