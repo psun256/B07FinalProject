@@ -11,7 +11,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -165,6 +164,7 @@ public class AddArtifactPresenter {
     private boolean checkEmptyFields() {
         if (view.getEditLotNum().getText().toString().trim().isEmpty() ||
                 view.getEditName().getText().toString().trim().isEmpty() ||
+                view.getEditCategory().getText().toString().trim().isEmpty() ||
                 view.getEditDesc().getText().toString().trim().isEmpty()) {
             view.showMessage("Please fill out all fields!");
             return false;
