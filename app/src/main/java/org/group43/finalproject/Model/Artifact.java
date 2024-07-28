@@ -10,6 +10,9 @@ public class Artifact {
     private String file;
     private String fileType;
 
+    public Artifact() {
+    }
+
     public Artifact(int lotNumber, String name, String category, String period, String description, String file, String fileType) {
         this.lotNumber = lotNumber;
         this.name = name;
