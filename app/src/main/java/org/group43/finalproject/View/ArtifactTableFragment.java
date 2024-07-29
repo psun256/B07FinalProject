@@ -1,9 +1,12 @@
 package org.group43.finalproject.View;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,8 +25,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.group43.finalproject.Model.Artifact;
+import org.group43.finalproject.Model.ArtifactAdapter;
 import org.group43.finalproject.R;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -32,6 +37,8 @@ import java.util.Objects;
  * create an instance of this fragment.
  */
 public class ArtifactTableFragment extends Fragment {
+    ArrayList<Artifact> artifacts;
+    ArtifactAdapter artifactAdapter;
     public ArtifactTableFragment() {
         // Required empty public constructor
     }
@@ -44,7 +51,12 @@ public class ArtifactTableFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_artifact_table, container, false);
-        TableLayout table = view.findViewById(R.id.artifactTable);
+        RecyclerView table = view.findViewById(R.id.artifactTable);
+        table.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        artifacts = new ArrayList<>();
+        artifactAdapter = new ArtifactAdapter(artifacts);
+        table.setAdapter(artifactAdapter);
 
         // TODO: Refactor this in MVP
         FirebaseDatabase db = FirebaseDatabase.getInstance(
@@ -52,18 +64,21 @@ public class ArtifactTableFragment extends Fragment {
         DatabaseReference artifactsRef = db.getReference("artifacts/");
 
         artifactsRef.orderByChild("lotNumber").addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                table.removeAllViews();
+                artifacts.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Artifact artifact = Objects.requireNonNull(snapshot.getValue(Artifact.class));
-                    ArtifactTableRowView row = new ArtifactTableRowView(getContext());
+                    artifacts.add(artifact);
+                    /*ArtifactTableRowView row = new ArtifactTableRowView(getContext());
                     row.setLotNumText(String.valueOf(artifact.getLotNumber()));
                     row.setNameText(artifact.getName());
                     row.setCategoryText(artifact.getCategory());
                     row.setPeriodText(artifact.getPeriod());
-                    table.addView(row);
+                    table.addView(row);*/
                 }
+                artifactAdapter.notifyDataSetChanged();
             }
 
             @Override

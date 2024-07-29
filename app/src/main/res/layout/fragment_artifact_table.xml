@@ -5,15 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".View.ArtifactTableFragment">
 
-    <TableLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/artifactTable"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </TableLayout>
-
+        android:layout_height="match_parent" />
 </FrameLayout>
