@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,45 +55,64 @@ public class ArtifactTableFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 table.removeAllViews();
+                TableRow headings = new TableRow(getContext());
+                TextView checkboxHeading = new TextView(getContext());
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Artifact artifact = Objects.requireNonNull(snapshot.getValue(Artifact.class));
                     TableRow row = new TableRow(getContext());
                     row.setPadding(2, 3, 2, 3);
 
                     TableRow.LayoutParams checkBoxParams = new TableRow.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            0,
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
                             0.08f
                     );
 
                     CheckBox checkBox = new CheckBox(getContext());
                     checkBox.setLayoutParams(checkBoxParams);
+                    checkBox.setGravity(Gravity.CENTER_VERTICAL);
                     row.addView(checkBox);
-
-                    TableRow.LayoutParams textParams = new TableRow.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            0.25f
-                    );
 
                     TextView lotNumText = new TextView(getContext());
                     lotNumText.setText(String.valueOf(artifact.getLotNumber()));
-                    lotNumText.setLayoutParams(textParams);
+                    TableRow.LayoutParams lotNumParams = new TableRow.LayoutParams(
+                            0,
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            0.15f
+                    );
+                    lotNumText.setLayoutParams(lotNumParams);
                     row.addView(lotNumText);
 
                     TextView nameText = new TextView(getContext());
                     nameText.setText(artifact.getName());
-                    nameText.setLayoutParams(textParams);
+                    nameText.setPadding(2,2,2,2);
+                    TableRow.LayoutParams nameParams = new TableRow.LayoutParams(
+                            0,
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            0.35f
+                    );
+                    nameText.setLayoutParams(nameParams);
+
                     row.addView(nameText);
 
                     TextView categoryText = new TextView(getContext());
+                    TableRow.LayoutParams categoryParams = new TableRow.LayoutParams(
+                            0,
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            0.25f
+                    );
                     categoryText.setText(artifact.getCategory());
-                    categoryText.setLayoutParams(textParams);
+                    categoryText.setLayoutParams(categoryParams);
                     row.addView(categoryText);
 
                     TextView periodText = new TextView(getContext());
                     periodText.setText(artifact.getPeriod());
-                    periodText.setLayoutParams(textParams);
+                    TableRow.LayoutParams periodParams = new TableRow.LayoutParams(
+                            0,
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            0.2f
+                    );
+                    periodText.setLayoutParams(periodParams);
                     row.addView(periodText);
 
                     table.addView(row);
