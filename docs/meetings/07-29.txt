@@ -1,0 +1,63 @@
+Paul:
+
+1. What have I accomplished since the previous meeting?
+Finished username + password login, and then worked on email login (and broke everything)
+
+2. What will I finish before the next meeting?
+Fix email login, hopefully finish pushing them
+
+3. What challenges / questions / concerns am I currently facing?
+Seems I need to do more wrangling with Firebase
+
+Yolanda:
+
+1. What have I accomplished since the previous meeting?
+Nearly finished adding artifacts
+
+2. What will I finish before the next meeting?
+Some cleanup / refactoring, as well as testing
+
+3. What challenges / questions / concerns am I currently facing?
+
+Steve:
+
+1. What have I accomplished since the previous meeting?
+Researched firebase
+
+2. What will I finish before the next meeting?
+Work on search functionality
+
+3. What challenges / questions / concerns am I currently facing?
+details of how to work with firebase
+
+Faisal:
+
+1. What have I accomplished since the previous meeting?
+Reviewing codebase, learning firebase
+
+2. What will I finish before the next meeting?
+View items in detail
+
+3. What challenges / questions / concerns am I currently facing?
+
+Osman:
+
+1. What have I accomplished since the previous meeting?
+Working on remove functionality
+
+2. What will I finish before the next meeting?
+Finishing remove functionality
+
+3. What challenges / questions / concerns am I currently facing?
+Technical details
+
+Mingyuan:
+
+1. What have I accomplished since the previous meeting?
+Working on table functionality. So far, displays basic information, and selection
+
+2. What will I finish before the next meeting?
+Work with Faisal to integrate view functionality.
+
+3. What challenges / questions / concerns am I currently facing?
+Refactor to MVP
