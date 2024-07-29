@@ -2,6 +2,7 @@ package org.group43.finalproject.View;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -39,6 +40,7 @@ public class AddArtifactFragment extends Fragment {
     private AddArtifactPresenter addArtifactPresenter;
     private Uri fileUri;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,20 +59,24 @@ public class AddArtifactFragment extends Fragment {
 
         addArtifactPresenter = new AddArtifactPresenter(this);
 
-        //set up dropdown menu for category
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this.requireContext(),
                 android.R.layout.simple_dropdown_item_1line, addArtifactPresenter.getCategories());
         editCategory.setAdapter(categoryAdapter);
 
-        //set up toolbar
+        editCategory.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                editCategory.showDropDown();
+                return false;
+            }
+        });
+
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         Objects.requireNonNull(activity).setSupportActionBar(addArtifactToolbar);
-
         if (activity.getSupportActionBar() != null) {
             activity.setSupportActionBar(addArtifactToolbar);
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             activity.getSupportActionBar().setHomeButtonEnabled(true);
-            activity.getSupportActionBar().setTitle(getResources().getText(R.string.addArtifact));
             Objects.requireNonNull(addArtifactToolbar.getNavigationIcon())
                     .setColorFilter(ContextCompat.getColor(requireContext(),
                             R.color.backgroundLight), PorterDuff.Mode.SRC_IN);

@@ -35,10 +35,9 @@ public class AddArtifactPresenter {
     }
 
     public ArrayList<String> getCategories() {
-        ArrayList<String> categories = new ArrayList<>();
-
         db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
         dbRef = db.getReference("categories/");
+        ArrayList<String> categories = new ArrayList<>();
 
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -53,9 +52,7 @@ public class AddArtifactPresenter {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
         return categories;
     }
@@ -98,9 +95,7 @@ public class AddArtifactPresenter {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
     }
 
@@ -115,28 +110,25 @@ public class AddArtifactPresenter {
             artifactRef = storageRef.child("vid/" + artifact.getFile());
         }
 
-        artifactRef.putFile(fileUri)
-                .addOnSuccessListener(taskSnapshot -> artifactRef
-                        .getDownloadUrl()
-                        .addOnSuccessListener(uri -> uploadArtifactToDB(artifact)))
-                .addOnFailureListener(e -> view
-                        .showMessage("Error: " + artifact.getFile() + " was not uploaded. Artifact not added."));
+        artifactRef.putFile(fileUri).addOnSuccessListener(taskSnapshot -> artifactRef
+                        .getDownloadUrl().addOnSuccessListener(uri -> uploadArtifactToDB(artifact)))
+                .addOnFailureListener(e -> view.showMessage("Error: "
+                        + artifact.getFile() + " was not uploaded. Artifact not added."));
     }
 
     public void uploadArtifactToDB(Artifact artifact) {
         db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
         dbRef = db.getReference("artifacts/");
 
-        dbRef.child(String.valueOf(artifact.getLotNumber()))
-                .setValue(artifact)
+        dbRef.child(String.valueOf(artifact.getLotNumber())).setValue(artifact)
                 .addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                view.showMessage("Artifact successfully added!");
-                updateCategories(artifact);
-            } else {
-                view.showMessage("Error: Artifact was not added.");
-            }
-        });
+                    if (task.isSuccessful()) {
+                        view.showMessage("Artifact successfully added!");
+                        updateCategories(artifact);
+                    } else {
+                        view.showMessage("Error: Artifact was not added.");
+                    }
+                });
     }
 
     private Artifact createArtifact(Uri fileUri) {
