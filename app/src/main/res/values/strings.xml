@@ -14,6 +14,7 @@
     <string name="fileNameHeader">File Uploaded:</string>
     <string name="image">image</string>
     <string name="lotNum">Lot Number</string>
+    <string name="lotNumShort">Lot #</string>
     <string name="name">Name</string>
     <string name="period">Period</string>
     <string name="periodPicDesc">Period: Picture and Description only</string>
