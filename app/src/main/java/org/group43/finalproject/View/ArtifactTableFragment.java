@@ -19,10 +19,10 @@ import org.group43.finalproject.R;
  * create an instance of this fragment.
  */
 public class ArtifactTableFragment extends Fragment {
-    private ArtifactTablePresenter presenter;
+    private final ArtifactTablePresenter presenter;
 
     public ArtifactTableFragment() {
-        // Required empty public constructor
+        presenter = new ArtifactTablePresenter(this);
     }
 
     public static ArtifactTableFragment newInstance() {
@@ -33,7 +33,6 @@ public class ArtifactTableFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_artifact_table, container, false);
-        presenter = new ArtifactTablePresenter(this);
         RecyclerView recyclerView = view.findViewById(R.id.artifactTable);
         presenter.bindAdapterToView(recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
