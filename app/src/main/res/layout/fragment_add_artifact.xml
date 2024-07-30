@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="1.0"
         app:maxButtonHeight="70dp"
         app:navigationIcon="@drawable/baseline_clear_24"
-        app:title="Add Artifact"
+        app:title="@string/addArtifact"
         app:titleTextColor="@color/backgroundLight" />
 
     <LinearLayout
@@ -30,7 +30,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="100dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,7 @@
             android:layout_height="48dp"
             android:width="488dp"
             android:dropDownWidth="wrap_content"
-            android:dropDownHeight="wrap_content"
+            android:dropDownHeight="200dp"
             android:hint="@string/category" />
 
         <TextView
@@ -83,6 +83,7 @@
             android:id="@+id/editPeriod"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:dropDownWidth="200dp"
             android:entries="@array/periods"
             android:minWidth="488dp" />
 
@@ -104,7 +105,6 @@
             android:id="@+id/uploadButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:width="320dp"
             android:maxWidth="320dp"
             android:text="@string/uploadPicVid" />
@@ -134,25 +134,19 @@
                 android:translationX="5dp" />
         </LinearLayout>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="106dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="105dp"
+            android:layout_marginBottom="30dp"
+            android:height="60dp"
+            android:text="@string/add"
+            android:textColorLink="@color/primaryDark"
+            android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="106dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="105dp"
-        android:layout_marginBottom="30dp"
-        android:height="60dp"
-        android:text="@string/add"
-        android:textColorLink="@color/primaryDark"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.611" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
