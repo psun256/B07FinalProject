@@ -13,7 +13,7 @@ public class SelectedArtifactsModel {
         selectedArtifacts.add(artifact);
     }
 
-    public void removeArtifact(Artifact artifact) {
+    public void deselectArtifact(Artifact artifact) {
         selectedArtifacts.remove(artifact);
     }
 
