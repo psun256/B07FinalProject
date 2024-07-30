@@ -27,7 +27,7 @@ public class ArtifactViewHolderPresenter {
             if (checked) {
                 onSelect();
             } else {
-                onRemove();
+                onDeselect();
             }
         });
     }
@@ -45,12 +45,12 @@ public class ArtifactViewHolderPresenter {
         ).show();
     }
 
-    public void onRemove() {
-        selectedArtifactsModel.removeArtifact(artifact);
+    public void onDeselect() {
+        selectedArtifactsModel.deselectArtifact(artifact);
         //FIXME: The toast is for debug purpose only! remove it after debugging is done.
         Toast.makeText(
                 holder.getSelected().getContext(),
-                "removed Lot# " + artifact.getLotNumber()
+                "Deselected Lot# " + artifact.getLotNumber()
                         + "\nTotal selected: "
                         + selectedArtifactsModel.getSelectedArtifacts().size(),
                 Toast.LENGTH_SHORT
