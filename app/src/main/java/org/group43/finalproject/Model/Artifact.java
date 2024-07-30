@@ -13,7 +13,8 @@ public class Artifact {
     public Artifact() {
     }
 
-    public Artifact(int lotNumber, String name, String category, String period, String description, String file, String fileType) {
+    public Artifact(int lotNumber, String name, String category, String period,
+                    String description, String file, String fileType) {
         this.lotNumber = lotNumber;
         this.name = name;
         this.category = category;
@@ -55,7 +56,9 @@ public class Artifact {
         this.period = period;
     }
 
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -75,5 +78,17 @@ public class Artifact {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Artifact)) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        Artifact other = (Artifact) obj;
+        return getLotNumber() == other.getLotNumber();
     }
 }
