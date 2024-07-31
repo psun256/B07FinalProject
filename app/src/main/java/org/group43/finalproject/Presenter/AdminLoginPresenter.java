@@ -1,8 +1,5 @@
 package org.group43.finalproject.Presenter;
 
-import static android.app.PendingIntent.getActivity;
-
-import org.group43.finalproject.Presenter.AdminLoginContract;
 import org.group43.finalproject.Model.AdminLoginModel;
 
 public class AdminLoginPresenter implements AdminLoginContract.Presenter {
@@ -15,7 +12,6 @@ public class AdminLoginPresenter implements AdminLoginContract.Presenter {
     }
     @Override
     public void handleAdminLogin(String username, String password) {
-        // call model
         AdminLoginModel model = new AdminLoginModel();
         model.performAdminLogin(username, password, this);
     }

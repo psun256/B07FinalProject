@@ -23,9 +23,6 @@ import org.group43.finalproject.R;
 public class HomeFragment extends Fragment {
 
     private FirebaseAuth mAuth;
-    private final String TAG = "hi";
-    private boolean test = false;
-
 
     Button addButton;
     Button adminButton;
@@ -50,28 +47,11 @@ public class HomeFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
 
-        //mAuth.signOut();
-
         if (mAuth == null || mAuth.getCurrentUser() == null) {
             addButton.setEnabled(false);
             removeButton.setEnabled(false);
             reportButton.setEnabled(false);
         }
-
-        if (test) {
-            if (mAuth == null || mAuth.getCurrentUser() == null) {
-                addButton.setEnabled(false);
-                removeButton.setEnabled(false);
-                reportButton.setEnabled(false);
-                mAuth.signInWithEmailAndPassword("bob1234@gmail.com", "123456");
-            } else {
-                mAuth.signOut();
-                assert(mAuth.getCurrentUser() == null);
-            }
-        }
-
-        Log.i("amogus", "oncreateview: " + mAuth.getCurrentUser());
-
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,11 +85,7 @@ public class HomeFragment extends Fragment {
 
         viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // loadFragment(new ViewArtifactFragment());
-                // restart activity MainActivity
-                getActivity().recreate();
-            }
+            public void onClick(View v) { loadFragment(new ViewArtifactFragment()); }
         });
 
         return view;

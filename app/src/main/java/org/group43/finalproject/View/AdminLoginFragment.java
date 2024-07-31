@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.group43.finalproject.Model.Admin;
 import org.group43.finalproject.Model.AdminLoginModel;
 import org.group43.finalproject.Presenter.AdminLoginContract;
 import org.group43.finalproject.Presenter.AdminLoginPresenter;
@@ -34,12 +33,10 @@ public class AdminLoginFragment extends Fragment implements View.OnClickListener
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_login, container, false);
 
-        // get login email button
         loginEmail = view.findViewById(R.id.loginEmail);
         loginPassword = view.findViewById(R.id.loginPassword);
         loginButton = view.findViewById(R.id.loginButton);
 
-        // set onclick listener
         loginButton.setOnClickListener(this);
 
         presenter = new AdminLoginPresenter(this, new AdminLoginModel());
