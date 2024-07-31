@@ -1,6 +1,7 @@
 package org.group43.finalproject.View;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,21 +11,67 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import org.group43.finalproject.R;
 
 public class HomeFragment extends Fragment {
+
+    private FirebaseAuth mAuth;
+    private final String TAG = "hi";
+    private boolean test = false;
+
+
+    Button addButton;
+    Button adminButton;
+    Button backButton;
+    Button removeButton;
+    Button reportButton;
+    Button searchButton;
+    Button viewButton;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
 
-        Button addButton = view.findViewById((R.id.addButton));
-        Button adminButton = view.findViewById((R.id.adminButton));
-        Button backButton = view.findViewById((R.id.backButton));
-        Button removeButton = view.findViewById((R.id.removeButton));
-        Button reportButton = view.findViewById(R.id.reportButton);
-        Button searchButton = view.findViewById((R.id.searchButton));
-        Button viewButton = view.findViewById((R.id.viewButton));
+        addButton = view.findViewById((R.id.addButton));
+        adminButton = view.findViewById((R.id.adminButton));
+        backButton = view.findViewById((R.id.backButton));
+        removeButton = view.findViewById((R.id.removeButton));
+        reportButton = view.findViewById(R.id.reportButton);
+        searchButton = view.findViewById((R.id.searchButton));
+        viewButton = view.findViewById((R.id.viewButton));
+
+        mAuth = FirebaseAuth.getInstance();
+
+        //mAuth.signOut();
+
+        if (mAuth == null || mAuth.getCurrentUser() == null) {
+            addButton.setEnabled(false);
+            removeButton.setEnabled(false);
+            reportButton.setEnabled(false);
+        }
+
+        if (test) {
+            if (mAuth == null || mAuth.getCurrentUser() == null) {
+                addButton.setEnabled(false);
+                removeButton.setEnabled(false);
+                reportButton.setEnabled(false);
+                mAuth.signInWithEmailAndPassword("bob1234@gmail.com", "123456");
+            } else {
+                mAuth.signOut();
+                assert(mAuth.getCurrentUser() == null);
+            }
+        }
+
+        Log.i("amogus", "oncreateview: " + mAuth.getCurrentUser());
+
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,12 +100,16 @@ public class HomeFragment extends Fragment {
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { loadFragment(new SearchArtifactFragment());}
+            public void onClick(View v) { loadFragment(new SearchArtifactFragment()); }
         });
 
         viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { loadFragment(new ViewArtifactFragment());}
+            public void onClick(View v) {
+                // loadFragment(new ViewArtifactFragment());
+                // restart activity MainActivity
+                getActivity().recreate();
+            }
         });
 
         return view;
