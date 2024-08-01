@@ -1,0 +1,46 @@
+Jul 30 Meeting
+
+Steve:
+
+1. What have I accomplished since the previous meeting?
+Learn how firebase work
+
+2. What will I finish before the next meeting?
+Connect firebase to the application and begin working with it
+
+3. What challenges / questions / concerns am I currently facing?
+None
+
+Faisal:
+
+1. What have I accomplished since the previous meeting?
+Looked into how to make the pop-up and fire base stuff today
+
+2. What will I finish before the next meeting?
+Start implementing
+
+3. What challenges / questions / concerns am I currently facing?
+Need to look into MVP to see make sure I follow it’s rules.
+
+
+Yolanda:
+
+1. What have I accomplished since the previous meeting?
+Added dropdown menu for category field + minor layout fixes, tested add artifact feature
+
+2. What will I finish before the next meeting?
+Start looking into the create report feature + create view layout for it
+
+3. What challenges / questions / concerns am I currently facing?
+None.
+
+Mingyuan:
+
+1. What have I accomplished since the previous meeting?
+did some huge refactor on my code; now artifacts selected by checkboxes are stored in SelectedArtifactsModel
+
+2. What will I finish before the next meeting?
+I will work on pagination of the table
+
+3. What challenges / questions / concerns am I currently facing?
+Not sure if I've done MVP right
