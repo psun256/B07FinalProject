@@ -1,6 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/reportToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxButtonHeight="70dp"
+        app:navigationIcon="@drawable/baseline_clear_24"
+        app:title="@string/createReport"
+        app:titleTextColor="@color/backgroundLight" />
+
+    <TextView
+        android:id="@+id/reportHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/reportHeader"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportToolbar" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportHeader">
+
+        <RadioGroup
+            android:id="@+id/reportOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/optionHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reportOptionHeader"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/reportByLotNumButton"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/lotNum" />
+
+            <RadioButton
+                android:id="@+id/reportByNameButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name" />
+
+            <RadioButton
+                android:id="@+id/reportByCategoryButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/category" />
+
+            <RadioButton
+                android:id="@+id/reportByPeriodButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/period" />
+
+            <RadioButton
+                android:id="@+id/reportAllButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/allArtifacts" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/filterHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reportFilterHeader"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editTextLotNum"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:ems="10"
+                android:hint="@string/lotNum"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:ems="10"
+                android:hint="@string/name"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextCategory"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:ems="10"
+                android:hint="@string/category"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextPeriod"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:ems="10"
+                android:hint="@string/period"
+                android:inputType="text" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="392dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <CheckBox
+            android:id="@+id/checkPicDescOnly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reportPicDescOnly"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/generateReportText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="50dp"
+            android:text="@string/generateReportText" />
+
+        <Button
+            android:id="@+id/generateReportButton"
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:text="@string/generateReport"
+            android:textSize="15sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
