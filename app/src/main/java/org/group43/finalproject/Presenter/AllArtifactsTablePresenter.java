@@ -2,13 +2,14 @@ package org.group43.finalproject.Presenter;
 
 import org.group43.finalproject.Model.Artifact;
 import org.group43.finalproject.Model.ArtifactsRepository;
+import org.group43.finalproject.Model.SelectedArtifactModel;
 import org.group43.finalproject.View.AllArtifactsTableFragment;
 
 import java.util.List;
 
 public class AllArtifactsTablePresenter {
 
-    private ArtifactsRepository repository;
+    private final ArtifactsRepository repository;
     private final AllArtifactsTableFragment artifactTable;
 
     public AllArtifactsTablePresenter(AllArtifactsTableFragment artifactTable) {
@@ -17,6 +18,7 @@ public class AllArtifactsTablePresenter {
     }
 
     public void loadArtifacts() {
+        new SelectedArtifactModel().clearSelection();
         repository.getAllArtifacts(
                 new ArtifactsRepository.DataCallback<List<Artifact>>() {
                     @Override

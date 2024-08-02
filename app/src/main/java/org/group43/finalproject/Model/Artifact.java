@@ -1,5 +1,7 @@
 package org.group43.finalproject.Model;
 
+import androidx.annotation.NonNull;
+
 public class Artifact {
 
     private int lotNumber;
@@ -95,5 +97,11 @@ public class Artifact {
     @Override
     public int hashCode() {
         return Integer.valueOf(getLotNumber()).hashCode();
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Lot# " + getLotNumber();
     }
 }

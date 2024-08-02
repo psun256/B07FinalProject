@@ -45,6 +45,7 @@ public class ArtifactAdapter extends RecyclerView.Adapter<ArtifactAdapter.Artifa
     public void onBindViewHolder(@NonNull ArtifactViewHolder holder, int position) {
         Artifact artifact = artifacts.get(position);
         holder.presenter.setArtifact(artifact);
+        holder.presenter.setAdapter(this);
     }
 
     public int getItemCount() {
@@ -68,13 +69,6 @@ public class ArtifactAdapter extends RecyclerView.Adapter<ArtifactAdapter.Artifa
             periodText = view.findViewById(R.id.period);
 
             presenter = new ArtifactViewHolderPresenter(this);
-            selectedCheckBox.setOnCheckedChangeListener((compoundButton, checked) -> {
-                if (checked) {
-                    presenter.onSelect();
-                } else {
-                    presenter.onDeselect();
-                }
-            });
         }
 
         public void displayArtifact(Artifact artifact, boolean selected) {
@@ -82,7 +76,16 @@ public class ArtifactAdapter extends RecyclerView.Adapter<ArtifactAdapter.Artifa
             nameText.setText(artifact.getName());
             categoryText.setText(artifact.getCategory());
             periodText.setText(artifact.getPeriod());
+
+            selectedCheckBox.setOnCheckedChangeListener(null);
             selectedCheckBox.setChecked(selected);
+            selectedCheckBox.setOnCheckedChangeListener((compoundButton, checked) -> {
+                if (checked) {
+                    presenter.onSelect();
+                } else {
+                    presenter.onDeselect();
+                }
+            });
         }
     }
 }

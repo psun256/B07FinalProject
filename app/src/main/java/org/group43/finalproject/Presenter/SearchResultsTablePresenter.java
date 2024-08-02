@@ -2,14 +2,14 @@ package org.group43.finalproject.Presenter;
 
 import org.group43.finalproject.Model.Artifact;
 import org.group43.finalproject.Model.ArtifactsRepository;
-import org.group43.finalproject.View.AllArtifactsTableFragment;
+import org.group43.finalproject.Model.SelectedArtifactModel;
 import org.group43.finalproject.View.SearchResultsTableFragment;
 
 import java.util.List;
 
 public class SearchResultsTablePresenter {
 
-    private ArtifactsRepository repository;
+    private final ArtifactsRepository repository;
     private final SearchResultsTableFragment artifactTable;
 
     public SearchResultsTablePresenter(SearchResultsTableFragment artifactTable) {
@@ -18,6 +18,7 @@ public class SearchResultsTablePresenter {
     }
 
     public void loadArtifacts() {
+        new SelectedArtifactModel().clearSelection();
         repository.searchArtifacts(
                 new ArtifactsRepository.DataCallback<List<Artifact>>() {
                     @Override
