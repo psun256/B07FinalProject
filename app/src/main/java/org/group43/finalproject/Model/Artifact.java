@@ -1,5 +1,7 @@
 package org.group43.finalproject.Model;
 
+import androidx.annotation.NonNull;
+
 public class Artifact {
 
     private int lotNumber;
@@ -15,13 +17,13 @@ public class Artifact {
 
     public Artifact(int lotNumber, String name, String category, String period,
                     String description, String file, String fileType) {
-        this.lotNumber = lotNumber;
-        this.name = name;
-        this.category = category;
-        this.period = period;
-        this.description = description;
-        this.file = file;
-        this.fileType = fileType;
+        setLotNumber(lotNumber);
+        setName(name);
+        setCategory(category);
+        setPeriod(period);
+        setDescription(description);
+        setFile(file);
+        setFileType(fileType);
     }
 
     public int getLotNumber() {
@@ -90,5 +92,16 @@ public class Artifact {
         }
         Artifact other = (Artifact) obj;
         return getLotNumber() == other.getLotNumber();
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.valueOf(getLotNumber()).hashCode();
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Lot# " + getLotNumber();
     }
 }
