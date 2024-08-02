@@ -8,6 +8,7 @@ import android.view.*;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,10 +21,39 @@ import org.group43.finalproject.Presenter.AdminLoginContract;
 import org.group43.finalproject.Presenter.AdminLoginPresenter;
 import org.group43.finalproject.R;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.*;
+import android.widget.*;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import org.group43.finalproject.Presenter.AddArtifactPresenter;
+import org.group43.finalproject.R;
+
+import java.util.Objects;
+
 public class AdminLoginFragment extends Fragment implements View.OnClickListener, AdminLoginContract.View {
 
     EditText loginEmail, loginPassword;
     Button loginButton;
+    Toolbar toolbar;
+
     FirebaseAuth mAuth;
 
     private AdminLoginPresenter presenter;
@@ -36,8 +66,18 @@ public class AdminLoginFragment extends Fragment implements View.OnClickListener
         loginEmail = view.findViewById(R.id.loginEmail);
         loginPassword = view.findViewById(R.id.loginPassword);
         loginButton = view.findViewById(R.id.loginButton);
+        toolbar = view.findViewById(R.id.toolbar);
 
         loginButton.setOnClickListener(this);
+
+        AppCompatActivity activityToolBar = (AppCompatActivity)getActivity();
+        activityToolBar.setSupportActionBar(toolbar);
+        activityToolBar.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activityToolBar.getSupportActionBar().setTitle("Amogous Acid");
+        Objects.requireNonNull(toolbar.getNavigationIcon())
+                    .setColorFilter(ContextCompat.getColor(requireContext(),
+                            R.color.backgroundLight), PorterDuff.Mode.SRC_IN);
+        toolbar.setNavigationOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
         presenter = new AdminLoginPresenter(this, new AdminLoginModel());
 
