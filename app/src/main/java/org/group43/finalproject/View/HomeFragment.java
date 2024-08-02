@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         addButton = view.findViewById((R.id.addButton));
-        adminButton = view.findViewById((R.id.adminButton));
+        adminButton = view.findViewById((R.id.signOutButton));
         backButton = view.findViewById((R.id.backButton));
         removeButton = view.findViewById((R.id.removeButton));
         reportButton = view.findViewById(R.id.reportButton);

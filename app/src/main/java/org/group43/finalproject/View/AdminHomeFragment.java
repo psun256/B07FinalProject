@@ -19,7 +19,7 @@ public class AdminHomeFragment extends Fragment {
     private FirebaseAuth mAuth;
 
     Button addButton;
-    Button adminButton;
+    Button signOutButton;
     Button backButton;
     Button removeButton;
     Button reportButton;
@@ -29,10 +29,10 @@ public class AdminHomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin_home, container, false);
 
         addButton = view.findViewById((R.id.addButton));
-        adminButton = view.findViewById((R.id.adminButton));
+        signOutButton = view.findViewById((R.id.signOutButton));
         backButton = view.findViewById((R.id.backButton));
         removeButton = view.findViewById((R.id.removeButton));
         reportButton = view.findViewById(R.id.reportButton);
@@ -52,9 +52,12 @@ public class AdminHomeFragment extends Fragment {
             public void onClick(View v) { loadFragment(new AddArtifactFragment());}
         });
 
-        adminButton.setOnClickListener(new View.OnClickListener() {
+        signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { loadFragment(new AdminLoginFragment());}
+            public void onClick(View v) {
+                mAuth.signOut();
+                getActivity().recreate();
+            }
         });
 
         backButton.setOnClickListener(new View.OnClickListener() {

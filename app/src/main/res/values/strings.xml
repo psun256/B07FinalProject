@@ -27,6 +27,7 @@
     <string name="video">video</string>
     <string name="view">View</string>
     <string name="uploadPicVid">Upload Picture/Video</string>
+    <string name="signOut">Sign Out</string>
 
     <string-array name="categories">
         <item>Brass</item>
