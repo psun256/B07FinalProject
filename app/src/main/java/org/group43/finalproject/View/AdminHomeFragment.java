@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.group43.finalproject.R;
 
-public class HomeFragment extends Fragment {
+public class AdminHomeFragment extends Fragment {
 
     private FirebaseAuth mAuth;
 
