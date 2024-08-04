@@ -22,7 +22,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import org.group43.finalproject.Model.CategoryModel;
-import org.group43.finalproject.Presenter.AddArtifactPresenter;
 import org.group43.finalproject.Presenter.CreateReportPresenter;
 import org.group43.finalproject.R;
 
@@ -100,17 +99,14 @@ public class CreateReportFragment extends Fragment {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void initializeCategoryFilter(View view) {
+    private void initializeCategoryFilter() {
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this.requireContext(),
                 android.R.layout.simple_dropdown_item_1line, CategoryModel.getInstance().getCategories());
         categoryFilter.setAdapter(categoryAdapter);
 
-        categoryFilter.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                categoryFilter.showDropDown();
-                return false;
-            }
+        categoryFilter.setOnTouchListener((view, motionEvent) -> {
+            categoryFilter.showDropDown();
+            return false;
         });
     }
 

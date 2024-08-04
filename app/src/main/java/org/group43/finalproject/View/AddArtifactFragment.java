@@ -64,12 +64,9 @@ public class AddArtifactFragment extends Fragment {
                 android.R.layout.simple_dropdown_item_1line, CategoryModel.getInstance().getCategories());
         editCategory.setAdapter(categoryAdapter);
 
-        editCategory.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                editCategory.showDropDown();
-                return false;
-            }
+        editCategory.setOnTouchListener((view1, motionEvent) -> {
+            editCategory.showDropDown();
+            return false;
         });
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
