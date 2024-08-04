@@ -135,10 +135,10 @@ public class CreateReportPresenter {
         Paint paint = new Paint();
         TextPaint textPaint = new TextPaint();
 
-        if (artifact.getDescription().length() > 1800) {
+        if (artifact.getDescription().length() > 1700) {
             textPaint.setTextSize(10);
         }
-        else if (artifact.getDescription().length() > 1400) {
+        else if (artifact.getDescription().length() > 1500) {
             textPaint.setTextSize(11);
         }
 
