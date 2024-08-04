@@ -1,13 +1,17 @@
 package org.group43.finalproject.View;
 
+import android.annotation.SuppressLint;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.*;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +21,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import org.group43.finalproject.Model.CategoryModel;
+import org.group43.finalproject.Presenter.AddArtifactPresenter;
 import org.group43.finalproject.Presenter.CreateReportPresenter;
 import org.group43.finalproject.R;
 
@@ -32,10 +38,10 @@ public class CreateReportFragment extends Fragment {
     private RadioButton reportByCategoryButton;
     private RadioButton reportByPeriodButton;
 
-    private EditText editTextLotNum;
-    private EditText editTextName;
-    private EditText editTextCategory;
-    private EditText editTextPeriod;
+    private EditText lotNumFilter;
+    private EditText nameFilter;
+    private AutoCompleteTextView categoryFilter;
+    private Spinner periodFilter;
 
     private CheckBox checkPicDescOnly;
 
@@ -51,6 +57,7 @@ public class CreateReportFragment extends Fragment {
 
         initializeView(view);
         initializeToolbar();
+        initializeCategoryFilter(view);
         initializeReportButton(view);
 
         return view;
@@ -66,10 +73,10 @@ public class CreateReportFragment extends Fragment {
         reportByCategoryButton = view.findViewById(R.id.reportByCategoryButton);
         reportByPeriodButton = view.findViewById(R.id.reportByPeriodButton);
 
-        editTextLotNum = view.findViewById(R.id.editTextLotNum);
-        editTextName = view.findViewById(R.id.editTextName);
-        editTextCategory = view.findViewById(R.id.editTextCategory);
-        editTextPeriod = view.findViewById(R.id.editTextPeriod);
+        lotNumFilter = view.findViewById(R.id.lotNumFilter);
+        nameFilter = view.findViewById(R.id.nameFilter);
+        categoryFilter = view.findViewById(R.id.categoryFilter);
+        periodFilter = view.findViewById(R.id.periodFilter);
 
         checkPicDescOnly = view.findViewById(R.id.checkPicDescOnly);
 
@@ -92,10 +99,25 @@ public class CreateReportFragment extends Fragment {
         reportToolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private void initializeCategoryFilter(View view) {
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this.requireContext(),
+                android.R.layout.simple_dropdown_item_1line, CategoryModel.getInstance().getCategories());
+        categoryFilter.setAdapter(categoryAdapter);
+
+        categoryFilter.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                categoryFilter.showDropDown();
+                return false;
+            }
+        });
+    }
+
     private void initializeReportButton(View view) {
         generateReportButton.setOnClickListener(v -> {
             Button checkedButton = view.findViewById(reportOptions.getCheckedRadioButtonId());
-            EditText checkedButtonText = getEditTextFromButton(checkedButton);
+            String checkedButtonText = getFilterFromOption(checkedButton);
 
             if (createReportPresenter.validateInput(checkedButton, checkedButtonText)) {
                 createReportPresenter.generateReport(checkedButton, checkedButtonText,
@@ -108,15 +130,15 @@ public class CreateReportFragment extends Fragment {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private EditText getEditTextFromButton(Button button) {
+    private String getFilterFromOption(Button button) {
         if (button == reportByLotNumButton)
-            return editTextLotNum;
+            return lotNumFilter.getText().toString().trim();
         if (button == reportByNameButton)
-            return editTextName;
+            return nameFilter.getText().toString().trim();
         if (button == reportByCategoryButton)
-            return editTextCategory;
+            return categoryFilter.getText().toString().trim();
         if (button == reportByPeriodButton)
-            return editTextPeriod;
+            return periodFilter.getSelectedItem().toString();
         return null;
     }
 }

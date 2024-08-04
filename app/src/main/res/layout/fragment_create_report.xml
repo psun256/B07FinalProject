@@ -103,7 +103,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/editTextLotNum"
+                android:id="@+id/lotNumFilter"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:ems="10"
@@ -111,28 +111,28 @@
                 android:inputType="number" />
 
             <EditText
-                android:id="@+id/editTextName"
+                android:id="@+id/nameFilter"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:ems="10"
                 android:hint="@string/name"
                 android:inputType="text" />
 
-            <EditText
-                android:id="@+id/editTextCategory"
+            <AutoCompleteTextView
+                android:id="@+id/categoryFilter"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:ems="10"
-                android:hint="@string/category"
-                android:inputType="text" />
+                android:dropDownHeight="160dp"
+                android:hint="@string/category" />
 
-            <EditText
-                android:id="@+id/editTextPeriod"
+            <Spinner
+                android:id="@+id/periodFilter"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:ems="10"
-                android:hint="@string/period"
-                android:inputType="text" />
+                android:dropDownWidth="wrap_content"
+                android:entries="@array/periods"
+                android:minHeight="300dp"
+                android:spinnerMode="dropdown" />
 
         </LinearLayout>
 
@@ -162,7 +162,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:height="50dp"
+            android:height="60dp"
             android:text="@string/generateReportText"
             android:textAlignment="center" />
 

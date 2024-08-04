@@ -10,7 +10,6 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
@@ -50,8 +49,8 @@ public class CreateReportPresenter {
         pageNum = 1;
     }
 
-    public void generateReport(Button checkedButton, EditText checkedButtonText, boolean picDescOnly) {
-        Query query = getArtifactsToInclude(checkedButton.getText().toString(), checkedButtonText);
+    public void generateReport(Button checkedButton, String filterText, boolean picDescOnly) {
+        Query query = getArtifactsToInclude(checkedButton.getText().toString(), filterText);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -115,7 +114,7 @@ public class CreateReportPresenter {
         }
     }
 
-    private Query getArtifactsToInclude(String option, EditText checkedButtonText) {
+    private Query getArtifactsToInclude(String option, String filterText) {
         FirebaseDatabase db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
         DatabaseReference dbRef = db.getReference("artifacts/");
 
@@ -124,12 +123,12 @@ public class CreateReportPresenter {
         }
         if (option.equals(view.getResources().getString(R.string.lotNum))) {
             return dbRef.orderByChild("lotNumber/")
-                    .equalTo(Integer.parseInt(checkedButtonText.getText().toString().trim()))
+                    .equalTo(Integer.parseInt(filterText))
                     .limitToFirst(1);
         }
 
         return dbRef.orderByChild(option.toLowerCase())
-                .equalTo(checkedButtonText.getText().toString().trim());
+                .equalTo(filterText);
     }
 
     private void drawBasicReportInfo(Canvas canvas, Artifact artifact, int pageNum) {
@@ -203,13 +202,13 @@ public class CreateReportPresenter {
         }
     }
 
-    public boolean validateInput(Button checkedButton, EditText editTextFromButton) {
+    public boolean validateInput(Button checkedButton, String filterFromOption) {
         if (checkedButton == null) {
             view.showMessage("Please select an option to generate a report!");
             return false;
         }
 
-        if (editTextFromButton != null && editTextFromButton.getText().toString().trim().isEmpty()) {
+        if (filterFromOption.isEmpty()) {
             view.showMessage("Please enter the text to filter the report by!");
             return false;
         }
