@@ -19,10 +19,9 @@ public class AdminLoginModel implements AdminLoginContract.Model {
             @Override
             public void onComplete(Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Log.i("AdminLogenModel", "logged in ig");
                     presenter.onAdminLoginSuccess();
                 } else {
-                    presenter.onAdminLoginFailure("upsi");
+                    presenter.onAdminLoginFailure();
                 }
             }
         });

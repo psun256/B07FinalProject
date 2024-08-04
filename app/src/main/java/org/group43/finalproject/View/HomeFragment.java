@@ -10,19 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import org.group43.finalproject.R;
 
 public class HomeFragment extends Fragment {
 
-    private FirebaseAuth mAuth;
-
-    Button addButton;
-    Button adminButton;
-    Button backButton;
-    Button removeButton;
-    Button reportButton;
+    Button signInButton;
     Button searchButton;
     Button viewButton;
 
@@ -31,45 +23,13 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        addButton = view.findViewById((R.id.addButton));
-        adminButton = view.findViewById((R.id.signOutButton));
-        backButton = view.findViewById((R.id.backButton));
-        removeButton = view.findViewById((R.id.removeButton));
-        reportButton = view.findViewById(R.id.reportButton);
-        searchButton = view.findViewById((R.id.searchButton));
-        viewButton = view.findViewById((R.id.viewButton));
+        signInButton    = view.findViewById((R.id.signInButton));
+        searchButton    = view.findViewById((R.id.searchButton));
+        viewButton      = view.findViewById((R.id.viewButton));
 
-        mAuth = FirebaseAuth.getInstance();
-
-        if (mAuth == null || mAuth.getCurrentUser() == null) {
-            addButton.setEnabled(false);
-            removeButton.setEnabled(false);
-            reportButton.setEnabled(false);
-        }
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new AddArtifactFragment());}
-        });
-
-        adminButton.setOnClickListener(new View.OnClickListener() {
+        signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { loadFragment(new AdminLoginFragment());}
-        });
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new ExitAdminFragment());}
-        });
-
-        removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new RemoveArtifactFragment());}
-        });
-
-        reportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new CreateReportFragment());}
         });
 
         searchButton.setOnClickListener(new View.OnClickListener() {

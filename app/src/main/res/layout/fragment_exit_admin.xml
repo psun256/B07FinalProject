@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/signOutButton"
+        android:id="@+id/signInButton"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginEnd="30dp"

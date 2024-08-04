@@ -31,6 +31,9 @@
     <string name="logoutText">Are you sure you want to sign out?</string>
     <string name="signinText">Please enter your email and password.</string>
     <string name="signinButton">Sign in</string>
+    <string name="signInToolbar">Sign In</string>
+    <string name="loginEmailEmpty">Please enter your email</string>
+    <string name="loginPasswordEmpty">Please enter your password</string>
 
     <string-array name="categories">
         <item>Brass</item>
@@ -66,5 +69,8 @@
         <item>Qing</item>
         <item>Modern</item>
     </string-array>
+    <string name="signOutMessage">Successfully signed out</string>
+    <string name="signOutToolbar">Sign Out</string>
+    <string name="signInSuccess">Successfully signed in</string>
 
 </resources>

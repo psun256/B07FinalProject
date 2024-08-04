@@ -13,6 +13,6 @@ public interface AdminLoginContract {
     interface Presenter {
         void handleAdminLogin(String username, String password);
         void onAdminLoginSuccess();
-        void onAdminLoginFailure(String message);
+        void onAdminLoginFailure();
     }
 }
