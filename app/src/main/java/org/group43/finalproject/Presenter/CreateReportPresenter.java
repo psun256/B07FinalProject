@@ -208,7 +208,7 @@ public class CreateReportPresenter {
             return false;
         }
 
-        if (filterFromOption.isEmpty()) {
+        if (filterFromOption != null && filterFromOption.isEmpty()) {
             view.showMessage("Please enter the text to filter the report by!");
             return false;
         }
