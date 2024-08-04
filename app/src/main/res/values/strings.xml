@@ -6,6 +6,7 @@
     <string name="app_name">TAAM Collection Management</string>
     <string name="back">Back</string>
     <string name="category">Category</string>
+    <string name="clearAll">Clear All</string>
     <string name="createReport">Create Report</string>
     <string name="defaultFile">No File Uploaded</string>
     <string name="desc">Description</string>
@@ -50,7 +51,7 @@
         <item>Zhanguo</item>
         <item>Qin</item>
         <item>Han</item>
-        <item>Shang</item>
+        <item>Sanguo</item>
         <item>Ji</item>
         <item>South and North</item>
         <item>Sui</item>
