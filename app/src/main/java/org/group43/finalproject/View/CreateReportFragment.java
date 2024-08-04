@@ -32,7 +32,6 @@ public class CreateReportFragment extends Fragment {
     private RadioButton reportByNameButton;
     private RadioButton reportByCategoryButton;
     private RadioButton reportByPeriodButton;
-    private RadioButton reportAllButton;
 
     private EditText editTextLotNum;
     private EditText editTextName;
@@ -67,7 +66,6 @@ public class CreateReportFragment extends Fragment {
         reportByNameButton = view.findViewById(R.id.reportByNameButton);
         reportByCategoryButton = view.findViewById(R.id.reportByCategoryButton);
         reportByPeriodButton = view.findViewById(R.id.reportByPeriodButton);
-        reportAllButton = view.findViewById(R.id.reportAllButton);
 
         editTextLotNum = view.findViewById(R.id.editTextLotNum);
         editTextName = view.findViewById(R.id.editTextName);

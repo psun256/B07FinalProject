@@ -37,9 +37,9 @@ import java.util.UUID;
 
 public class CreateReportPresenter {
     private static final int PAGE_WIDTH = 612;
-    private static final int PAGE_HEIGHT = 400;
-    private static final int IMAGE_WIDTH = 230;
-    private static final int IMAGE_HEIGHT = 160;
+    private static final int PAGE_HEIGHT = 450;
+    private static final int MAX_IMAGE_WIDTH = 200;
+    private static final int MAX_IMAGE_HEIGHT = 180;
 
     private final CreateReportFragment view;
     private final Queue<Artifact> artifactQueue;
@@ -58,6 +58,7 @@ public class CreateReportPresenter {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    view.showMessage("Generating report...");
                     for (DataSnapshot artifactSnapshot : snapshot.getChildren()) {
                         artifactQueue.add(artifactSnapshot.getValue(Artifact.class));
                     }
@@ -86,10 +87,6 @@ public class CreateReportPresenter {
         PdfDocument.Page page = pdf.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
 
-        if (!picDescOnly) {
-            drawArtifactInfoToPDF(canvas, artifact);
-        }
-
         drawBasicReportInfo(canvas, artifact, pageNum);
 
         if (artifact.getFileType().equals(view.getResources().getString(R.string.image))) {
@@ -100,14 +97,22 @@ public class CreateReportPresenter {
                 @Override
                 public void onSuccess(byte[] bytes) {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
-                    Bitmap resizeBitmap = Bitmap.createScaledBitmap(bitmap, IMAGE_WIDTH, IMAGE_HEIGHT, true);
-                    canvas.drawBitmap(resizeBitmap, 20, 20, null);
+                    Bitmap resizedBitmap = resizeBitmap(bitmap);
+                    canvas.drawBitmap(resizedBitmap, 20, 30, null);
+
+                    if (!picDescOnly) {
+                        drawArtifactInfoToPDF(canvas, artifact, resizedBitmap);
+                    }
                     pdf.finishPage(page);
                     pageNum++;
                     addPageToPDF(pdf, picDescOnly);
                 }
             });
         } else {
+            if (!picDescOnly) {
+                drawArtifactInfoToPDF(canvas, artifact, null);
+            }
+
             pdf.finishPage(page);
             pageNum++;
             addPageToPDF(pdf, picDescOnly);
@@ -133,37 +138,56 @@ public class CreateReportPresenter {
 
     private void drawBasicReportInfo(Canvas canvas, Artifact artifact, int pageNum) {
         Paint paint = new Paint();
+        TextPaint textPaint = new TextPaint();
 
-        StaticLayout descLayout = new StaticLayout(artifact.getDescription(), new TextPaint(), 320, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        if (artifact.getDescription().length() > 1800) {
+            textPaint.setTextSize(10);
+        }
+        else if (artifact.getDescription().length() > 1400) {
+            textPaint.setTextSize(11);
+        }
+
+        StaticLayout descLayout = new StaticLayout(artifact.getDescription(), textPaint, 340, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
         canvas.save();
-        canvas.translate(270, 30);
+        canvas.translate(240, 30);
         descLayout.draw(canvas);
         canvas.restore();
 
-        canvas.drawText(view.getResources().getString(R.string.app_name), 10, 390, paint);
-        canvas.drawText(String.valueOf(pageNum), 580, 390, paint);
+        canvas.drawText(view.getResources().getString(R.string.app_name), 10, PAGE_HEIGHT - 10, paint);
+        canvas.drawText(String.valueOf(pageNum), PAGE_WIDTH - 32, PAGE_HEIGHT - 10, paint);
     }
 
-    private void drawArtifactInfoToPDF(Canvas canvas, Artifact artifact) {
+    private void drawArtifactInfoToPDF(Canvas canvas, Artifact artifact, Bitmap bitmap) {
         TextPaint nameTextPaint = new TextPaint();
         Paint paint = new Paint();
-        StaticLayout layout;
 
         nameTextPaint.setTextSize(16);
+        int nameHeight;
 
-        layout = new StaticLayout(artifact.getName(), nameTextPaint, 230, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        if (bitmap == null) {
+            nameHeight = 30;
+        }
+        else {
+             nameHeight = bitmap.getHeight() + 50;
+        }
+
+        int lotNumHeight = nameHeight + 80;
+        int periodHeight = lotNumHeight + 20;
+        int categoryHeight = periodHeight + 20;
+
+        StaticLayout layout = new StaticLayout(artifact.getName(), nameTextPaint, 250, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
         canvas.save();
-        canvas.translate(20, 190);
+        canvas.translate(20, nameHeight);
         layout.draw(canvas);
         canvas.restore();
 
-        canvas.drawText(view.getResources().getString(R.string.lotNumShort) + artifact.getLotNumber(), 20, 280, paint);
-        canvas.drawText(view.getResources().getString(R.string.period) + ": " + artifact.getPeriod(), 20, 300, paint);
+        canvas.drawText(view.getResources().getString(R.string.lotNumShort) + artifact.getLotNumber(), 20, lotNumHeight, paint);
+        canvas.drawText(view.getResources().getString(R.string.period) + ": " + artifact.getPeriod(), 20, periodHeight, paint);
 
-        canvas.drawText(view.getResources().getString(R.string.category) + ": ", 20, 321, paint);
+        canvas.drawText(view.getResources().getString(R.string.category) + ": ", 20, categoryHeight, paint);
         layout = new StaticLayout(artifact.getCategory(), new TextPaint(), 150, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
         canvas.save();
-        canvas.translate(75, 310);
+        canvas.translate(75, categoryHeight - 10);
         layout.draw(canvas);
         canvas.restore();
     }
@@ -197,4 +221,23 @@ public class CreateReportPresenter {
         return true;
     }
 
+    private Bitmap resizeBitmap(Bitmap bitmap) {
+        if (bitmap == null) {
+            return null;
+        }
+
+        int outWidth;
+        int outHeight;
+        int inWidth = bitmap.getWidth();
+        int inHeight = bitmap.getHeight();
+        if(inWidth > inHeight){
+            outWidth = MAX_IMAGE_WIDTH;
+            outHeight = (inHeight * MAX_IMAGE_HEIGHT) / inWidth;
+        } else {
+            outHeight = MAX_IMAGE_HEIGHT;
+            outWidth = (inWidth * MAX_IMAGE_WIDTH) / inHeight;
+        }
+
+        return Bitmap.createScaledBitmap(bitmap, outWidth, outHeight, true);
+    }
 }

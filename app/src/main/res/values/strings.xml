@@ -23,7 +23,7 @@
     <string name="reportPicDescOnly">Use picture and description only</string>
     <string name="search">Search</string>
     <string name="generateReport">Generate Report</string>
-    <string name="generateReportText">Generating a report will create and download a PDF file listing the artifacts that match your selected option and input filter.</string>
+    <string name="generateReportText">Generating a report will create a PDF file in your Downloads folder listing the artifacts that match your selected option and input filter.</string>
     <string name="text">Text</string>
     <string name="video">video</string>
     <string name="view">View</string>
