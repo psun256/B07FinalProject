@@ -180,9 +180,9 @@ public class CreateReportPresenter {
         canvas.drawText(view.getResources().getString(R.string.period) + ": " + artifact.getPeriod(), 20, periodHeight, paint);
 
         canvas.drawText(view.getResources().getString(R.string.category) + ": ", 20, categoryHeight, paint);
-        layout = new StaticLayout(artifact.getCategory(), new TextPaint(), 150, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        layout = new StaticLayout(artifact.getCategory(), new TextPaint(), 140, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
         canvas.save();
-        canvas.translate(75, categoryHeight - 10);
+        canvas.translate(75, categoryHeight - 11);
         layout.draw(canvas);
         canvas.restore();
     }
