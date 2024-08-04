@@ -14,7 +14,6 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -93,20 +92,17 @@ public class CreateReportPresenter {
             StorageReference storageRef = FirebaseStorage.getInstance().getReference();
             StorageReference imageRef = storageRef.child("img/" + artifact.getFile());
 
-            imageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                @Override
-                public void onSuccess(byte[] bytes) {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
-                    Bitmap resizedBitmap = resizeBitmap(bitmap);
-                    canvas.drawBitmap(resizedBitmap, 20, 30, null);
+            imageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(bytes -> {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
+                Bitmap resizedBitmap = resizeBitmap(bitmap);
+                canvas.drawBitmap(resizedBitmap, 20, 30, null);
 
-                    if (!picDescOnly) {
-                        drawArtifactInfoToPDF(canvas, artifact, resizedBitmap);
-                    }
-                    pdf.finishPage(page);
-                    pageNum++;
-                    addPageToPDF(pdf, picDescOnly);
+                if (!picDescOnly) {
+                    drawArtifactInfoToPDF(canvas, artifact, resizedBitmap);
                 }
+                pdf.finishPage(page);
+                pageNum++;
+                addPageToPDF(pdf, picDescOnly);
             });
         } else {
             if (!picDescOnly) {
