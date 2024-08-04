@@ -8,6 +8,7 @@
     <string name="back">Back</string>
     <string name="category">Category</string>
     <string name="categoryPicDesc">Category: Picture and Description only</string>
+    <string name="clearAll">Clear All</string>
     <string name="createReport">Create Report</string>
     <string name="defaultFile">No File Uploaded</string>
     <string name="desc">Description</string>
