@@ -56,7 +56,7 @@ public class CreateReportFragment extends Fragment {
 
         initializeView(view);
         initializeToolbar();
-        initializeCategoryFilter(view);
+        initializeCategoryFilter();
         initializeReportButton(view);
 
         return view;
