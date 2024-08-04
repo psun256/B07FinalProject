@@ -6,6 +6,7 @@ import android.view.*;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -120,29 +121,5 @@ public class CreateReportFragment extends Fragment {
         if (button == reportByPeriodButton)
             return editTextPeriod;
         return null;
-    }
-
-    public RadioGroup getReportOptions() {
-        return reportOptions;
-    }
-
-    public RadioButton getReportByLotNumButton() {
-        return reportByLotNumButton;
-    }
-
-    public RadioButton getReportByNameButton() {
-        return reportByNameButton;
-    }
-
-    public RadioButton getReportByCategoryButton() {
-        return reportByCategoryButton;
-    }
-
-    public RadioButton getReportByPeriodButton() {
-        return reportByPeriodButton;
-    }
-
-    public RadioButton getReportAllButton() {
-        return reportAllButton;
     }
 }
