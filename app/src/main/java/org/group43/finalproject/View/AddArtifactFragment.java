@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import org.group43.finalproject.Model.CategoryModel;
 import org.group43.finalproject.Presenter.AddArtifactPresenter;
 import org.group43.finalproject.R;
 
@@ -60,15 +61,12 @@ public class AddArtifactFragment extends Fragment {
         addArtifactPresenter = new AddArtifactPresenter(this);
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this.requireContext(),
-                android.R.layout.simple_dropdown_item_1line, addArtifactPresenter.getCategories());
+                android.R.layout.simple_dropdown_item_1line, CategoryModel.getInstance().getCategories());
         editCategory.setAdapter(categoryAdapter);
 
-        editCategory.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                editCategory.showDropDown();
-                return false;
-            }
+        editCategory.setOnTouchListener((view1, motionEvent) -> {
+            editCategory.showDropDown();
+            return false;
         });
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
