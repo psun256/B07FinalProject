@@ -47,7 +47,7 @@ public class ViewArtifactFragment extends Fragment {
 
 
         if (artifacts != null && !artifacts.isEmpty()) {
-            Artifact artifact = artifacts.get(0);
+            Artifact artifact = artifacts.get(artifacts.size() - 1);
             lotNumber.setText(String.valueOf(artifact.getLotNumber()));
             name.setText(artifact.getName());
             category.setText(artifact.getCategory());
