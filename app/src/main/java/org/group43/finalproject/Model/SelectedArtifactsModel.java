@@ -17,7 +17,7 @@ public class SelectedArtifactsModel {
         selectedArtifacts.remove(artifact);
     }
 
-    public List<Artifact> getSelectedArtifacts() {
+    public static List<Artifact> getSelectedArtifacts() {
         return selectedArtifacts;
     }
 }
