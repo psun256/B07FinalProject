@@ -47,6 +47,16 @@ public class AddArtifactPresenter {
         }
     }
 
+    public void clearArtifact() {
+        view.getEditLotNum().getText().clear();
+        view.getEditName().getText().clear();
+        view.getEditCategory().getText().clear();
+        view.getEditDesc().getText().clear();
+        view.getTextFileName().setText("");
+        view.getTextFileName().setHint(view.getResources().getString(R.string.defaultFile));
+        view.showMessage("Input cleared!");
+    }
+
     public void addArtifact(Uri fileUri) {
         if (!checkEmptyFields()) {
             return;
@@ -62,6 +72,7 @@ public class AddArtifactPresenter {
                 if (snapshot.exists()) {
                     view.showMessage("Lot number is already taken! Artifact not added.");
                 } else {
+                    view.showMessage("Adding artifact...");
                     if (!artifact.getFile().isEmpty()) {
                         uploadMediaToStorage(fileUri, artifact);
                     } else {
@@ -140,5 +151,4 @@ public class AddArtifactPresenter {
 
         return true;
     }
-
 }

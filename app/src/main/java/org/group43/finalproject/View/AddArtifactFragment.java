@@ -37,40 +37,49 @@ public class AddArtifactFragment extends Fragment {
 
     private Button addButton;
     private Button uploadButton;
+    private Button clearAllButton;
 
     private AddArtifactPresenter addArtifactPresenter;
     private Uri fileUri;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_artifact, container, false);
+        addArtifactPresenter = new AddArtifactPresenter(this);
+        fileUri = null;
 
+        initializeView(view);
+        initializeToolbar();
+        initializeCategoryMenu();
+
+        uploadButton.setOnClickListener(v -> chooseFile());
+        addButton.setOnClickListener(v -> addArtifactPresenter.addArtifact(fileUri));
+        clearAllButton.setOnClickListener(v -> {
+            fileUri = null;
+            addArtifactPresenter.clearArtifact();
+        });
+
+        return view;
+    }
+
+    public void initializeView(View view) {
         addArtifactToolbar = view.findViewById(R.id.addArtifactToolbar);
         editLotNum = view.findViewById(R.id.editLotNum);
         editName = view.findViewById(R.id.editName);
         editDesc = view.findViewById(R.id.editDescription);
+        editCategory = view.findViewById(R.id.editCategory);
+        editPeriod = view.findViewById(R.id.editPeriod);
         textFileName = view.findViewById(R.id.textFileName);
         addButton = view.findViewById(R.id.addButton);
         uploadButton = view.findViewById(R.id.uploadButton);
-        editCategory = view.findViewById(R.id.editCategory);
-        editPeriod = view.findViewById(R.id.editPeriod);
-        fileUri = null;
+        clearAllButton = view.findViewById(R.id.clearAllButton);
+    }
 
-        addArtifactPresenter = new AddArtifactPresenter(this);
-
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this.requireContext(),
-                android.R.layout.simple_dropdown_item_1line, CategoryModel.getInstance().getCategories());
-        editCategory.setAdapter(categoryAdapter);
-
-        editCategory.setOnTouchListener((view1, motionEvent) -> {
-            editCategory.showDropDown();
-            return false;
-        });
-
+    public void initializeToolbar() {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         Objects.requireNonNull(activity).setSupportActionBar(addArtifactToolbar);
+
         if (activity.getSupportActionBar() != null) {
             activity.setSupportActionBar(addArtifactToolbar);
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -80,11 +89,18 @@ public class AddArtifactFragment extends Fragment {
                             R.color.backgroundLight), PorterDuff.Mode.SRC_IN);
         }
         addArtifactToolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
+    }
 
-        uploadButton.setOnClickListener(v -> chooseFile());
-        addButton.setOnClickListener(v -> addArtifactPresenter.addArtifact(fileUri));
+    @SuppressLint("ClickableViewAccessibility")
+    public void initializeCategoryMenu() {
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this.requireContext(),
+                android.R.layout.simple_dropdown_item_1line, addArtifactPresenter.getCategories());
+        editCategory.setAdapter(categoryAdapter);
 
-        return view;
+        editCategory.setOnTouchListener((view, motionEvent) -> {
+            editCategory.showDropDown();
+            return false;
+        });
     }
 
     public void chooseFile() {
