@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.*;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,10 @@ import org.group43.finalproject.Model.SelectedArtifactsModel;
 import org.group43.finalproject.R;
 import java.util.List;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 public class ViewArtifactFragment extends Fragment {
 
     private TextView lotNumber;
@@ -22,6 +27,7 @@ public class ViewArtifactFragment extends Fragment {
     private TextView period;
     private TextView description;
     private ImageView image;
+    private VideoView video;
 
     @Nullable
     @Override
@@ -34,6 +40,7 @@ public class ViewArtifactFragment extends Fragment {
         period = view.findViewById(R.id.detailViewPeriod);
         description = view.findViewById(R.id.detailViewDescription);
         image = view.findViewById(R.id.detailViewImage);
+        video = view.findViewById(R.id.detailViewVideo);
 
         // Fetch the selected artifact
         List<Artifact> artifacts = SelectedArtifactsModel.getSelectedArtifacts();
@@ -47,9 +54,44 @@ public class ViewArtifactFragment extends Fragment {
             period.setText(artifact.getPeriod());
             description.setText(artifact.getDescription());
 
-            // Add image getter.
+            String fileType = artifact.getFileType();
+            String filePath = artifact.getFile();
+
+
+            /* Reference for Accessing Firebase storage and loading images into Views:
+            * https://www.youtube.com/watch?v=DRqObCUCGl0
+            * https://www.youtube.com/watch?v=_eTZowmape8
+            * */
+
+
+            if (fileType.equals("image")) {
+
+                image.setVisibility(View.VISIBLE);
+                video.setVisibility(View.GONE);
+
+                // images are stored in img/filename
+                StorageReference fbStorage = FirebaseStorage.getInstance().getReference().child("img/" + filePath);
+                fbStorage.getDownloadUrl().addOnSuccessListener(uri ->
+                        Picasso.get().load(uri).into(image)
+                );
+
+            } else if (fileType.equals("video")) {
+                image.setVisibility(View.GONE);
+                video.setVisibility(View.VISIBLE);
+
+                // videos are stored in vid/filename
+                StorageReference fbStorage = FirebaseStorage.getInstance().getReference().child("vid/" + filePath);
+                fbStorage.getDownloadUrl().addOnSuccessListener(uri -> {
+                    video.setVideoURI(uri);
+                    video.start();
+                });
+
+
+            }
         }
 
         return view;
     }
+
+
 }
