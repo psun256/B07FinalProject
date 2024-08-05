@@ -10,11 +10,9 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,11 +46,11 @@ public class CreateReportPresenter {
     public CreateReportPresenter(CreateReportFragment view) {
         this.view = view;
         artifactQueue = new LinkedList<>();
-        pageNum = 1;
+        pageNum = -1;
     }
 
-    public void generateReport(Button checkedButton, EditText checkedButtonText, boolean picDescOnly) {
-        Query query = getArtifactsToInclude(checkedButton.getText().toString(), checkedButtonText);
+    public void generateReport(Button checkedButton, String filterText, boolean picDescOnly) {
+        Query query = getArtifactsToInclude(checkedButton.getText().toString(), filterText);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -63,6 +61,7 @@ public class CreateReportPresenter {
                         artifactQueue.add(artifactSnapshot.getValue(Artifact.class));
                     }
 
+                    pageNum = 1;
                     PdfDocument pdf = new PdfDocument();
                     addPageToPDF(pdf, picDescOnly);
                 } else {
@@ -90,36 +89,38 @@ public class CreateReportPresenter {
         drawBasicReportInfo(canvas, artifact, pageNum);
 
         if (artifact.getFileType().equals(view.getResources().getString(R.string.image))) {
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-            StorageReference imageRef = storageRef.child("img/" + artifact.getFile());
-
-            imageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                @Override
-                public void onSuccess(byte[] bytes) {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
-                    Bitmap resizedBitmap = resizeBitmap(bitmap);
-                    canvas.drawBitmap(resizedBitmap, 20, 30, null);
-
-                    if (!picDescOnly) {
-                        drawArtifactInfoToPDF(canvas, artifact, resizedBitmap);
-                    }
-                    pdf.finishPage(page);
-                    pageNum++;
-                    addPageToPDF(pdf, picDescOnly);
-                }
-            });
+            createPDFWithImage(pdf, page, artifact, canvas, picDescOnly);
         } else {
-            if (!picDescOnly) {
-                drawArtifactInfoToPDF(canvas, artifact, null);
-            }
-
-            pdf.finishPage(page);
-            pageNum++;
-            addPageToPDF(pdf, picDescOnly);
+            completePDF(pdf, page, artifact, canvas, picDescOnly, null);
         }
     }
 
-    private Query getArtifactsToInclude(String option, EditText checkedButtonText) {
+    private void createPDFWithImage(PdfDocument pdf, PdfDocument.Page page, Artifact artifact,
+                                    Canvas canvas, boolean picDescOnly) {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference imageRef = storageRef.child("img/" + artifact.getFile());
+
+        imageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(bytes -> {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
+            Bitmap resizedBitmap = resizeBitmap(bitmap);
+            canvas.drawBitmap(resizedBitmap, 20, 30, null);
+
+            completePDF(pdf, page, artifact, canvas, picDescOnly, resizedBitmap);
+        });
+    }
+
+    private void completePDF(PdfDocument pdf, PdfDocument.Page page, Artifact artifact,
+                             Canvas canvas, boolean picDescOnly, Bitmap bitmap) {
+        if (!picDescOnly) {
+            drawArtifactInfoToPDF(canvas, artifact, bitmap);
+        }
+
+        pdf.finishPage(page);
+        pageNum++;
+        addPageToPDF(pdf, picDescOnly);
+    }
+
+    private Query getArtifactsToInclude(String option, String filterText) {
         FirebaseDatabase db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
         DatabaseReference dbRef = db.getReference("artifacts/");
 
@@ -128,22 +129,21 @@ public class CreateReportPresenter {
         }
         if (option.equals(view.getResources().getString(R.string.lotNum))) {
             return dbRef.orderByChild("lotNumber/")
-                    .equalTo(Integer.parseInt(checkedButtonText.getText().toString().trim()))
+                    .equalTo(Integer.parseInt(filterText))
                     .limitToFirst(1);
         }
 
         return dbRef.orderByChild(option.toLowerCase())
-                .equalTo(checkedButtonText.getText().toString().trim());
+                .equalTo(filterText);
     }
 
     private void drawBasicReportInfo(Canvas canvas, Artifact artifact, int pageNum) {
         Paint paint = new Paint();
         TextPaint textPaint = new TextPaint();
 
-        if (artifact.getDescription().length() > 1800) {
+        if (artifact.getDescription().length() > 1700) {
             textPaint.setTextSize(10);
-        }
-        else if (artifact.getDescription().length() > 1400) {
+        } else if (artifact.getDescription().length() > 1500) {
             textPaint.setTextSize(11);
         }
 
@@ -166,9 +166,8 @@ public class CreateReportPresenter {
 
         if (bitmap == null) {
             nameHeight = 30;
-        }
-        else {
-             nameHeight = bitmap.getHeight() + 50;
+        } else {
+            nameHeight = bitmap.getHeight() + 50;
         }
 
         int lotNumHeight = nameHeight + 80;
@@ -185,9 +184,9 @@ public class CreateReportPresenter {
         canvas.drawText(view.getResources().getString(R.string.period) + ": " + artifact.getPeriod(), 20, periodHeight, paint);
 
         canvas.drawText(view.getResources().getString(R.string.category) + ": ", 20, categoryHeight, paint);
-        layout = new StaticLayout(artifact.getCategory(), new TextPaint(), 150, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        layout = new StaticLayout(artifact.getCategory(), new TextPaint(), 140, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
         canvas.save();
-        canvas.translate(75, categoryHeight - 10);
+        canvas.translate(75, categoryHeight - 11);
         layout.draw(canvas);
         canvas.restore();
     }
@@ -207,13 +206,13 @@ public class CreateReportPresenter {
         }
     }
 
-    public boolean validateInput(Button checkedButton, EditText editTextFromButton) {
+    public boolean validateInput(Button checkedButton, String filterFromOption) {
         if (checkedButton == null) {
             view.showMessage("Please select an option to generate a report!");
             return false;
         }
 
-        if (editTextFromButton != null && editTextFromButton.getText().toString().trim().isEmpty()) {
+        if (filterFromOption != null && filterFromOption.isEmpty()) {
             view.showMessage("Please enter the text to filter the report by!");
             return false;
         }
@@ -222,22 +221,24 @@ public class CreateReportPresenter {
     }
 
     private Bitmap resizeBitmap(Bitmap bitmap) {
+        int newWidth;
+        int newHeight;
+
         if (bitmap == null) {
             return null;
         }
 
-        int outWidth;
-        int outHeight;
-        int inWidth = bitmap.getWidth();
-        int inHeight = bitmap.getHeight();
-        if(inWidth > inHeight){
-            outWidth = MAX_IMAGE_WIDTH;
-            outHeight = (inHeight * MAX_IMAGE_HEIGHT) / inWidth;
+        int oldWidth = bitmap.getWidth();
+        int oldHeight = bitmap.getHeight();
+
+        if (oldWidth > oldHeight) {
+            newWidth = MAX_IMAGE_WIDTH;
+            newHeight = (oldHeight * MAX_IMAGE_HEIGHT) / oldWidth;
         } else {
-            outHeight = MAX_IMAGE_HEIGHT;
-            outWidth = (inWidth * MAX_IMAGE_WIDTH) / inHeight;
+            newHeight = MAX_IMAGE_HEIGHT;
+            newWidth = (oldWidth * MAX_IMAGE_WIDTH) / oldHeight;
         }
 
-        return Bitmap.createScaledBitmap(bitmap, outWidth, outHeight, true);
+        return Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true);
     }
 }

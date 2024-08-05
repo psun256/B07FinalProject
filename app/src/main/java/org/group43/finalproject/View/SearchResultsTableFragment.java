@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import org.group43.finalproject.Model.Artifact;
 import org.group43.finalproject.Model.ArtifactAdapter;
-import org.group43.finalproject.Presenter.AllArtifactsTablePresenter;
 import org.group43.finalproject.Presenter.SearchResultsTablePresenter;
 import org.group43.finalproject.R;
 
