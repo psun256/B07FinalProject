@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import org.group43.finalproject.Model.CategoryModel;
 import org.group43.finalproject.Presenter.AddArtifactPresenter;
 import org.group43.finalproject.R;
 

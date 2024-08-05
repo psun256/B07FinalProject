@@ -16,11 +16,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.group43.finalproject.Model.Artifact;
-import org.group43.finalproject.Model.Category;
+import org.group43.finalproject.Model.CategoryModel;
 import org.group43.finalproject.R;
 import org.group43.finalproject.View.AddArtifactFragment;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class AddArtifactPresenter {
@@ -32,29 +31,6 @@ public class AddArtifactPresenter {
     public AddArtifactPresenter(AddArtifactFragment view) {
         this.view = view;
         this.contentRes = view.requireActivity().getContentResolver();
-    }
-
-    public ArrayList<String> getCategories() {
-        db = FirebaseDatabase.getInstance();
-        dbRef = db.getReference("categories/");
-        ArrayList<String> categories = new ArrayList<>();
-
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String category = snapshot.getKey();
-
-                    if (!categories.contains(category)) {
-                        categories.add(category);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-        return categories;
     }
 
     public void filePicked(Uri uri) {
@@ -135,7 +111,7 @@ public class AddArtifactPresenter {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         view.showMessage("Artifact successfully added!");
-                        updateCategories(artifact);
+                        CategoryModel.getInstance().updateCategories(artifact);
                     } else {
                         view.showMessage("Error: Artifact was not added.");
                     }
@@ -174,12 +150,5 @@ public class AddArtifactPresenter {
         }
 
         return true;
-    }
-
-    private void updateCategories(Artifact artifact) {
-        db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
-        dbRef = db.getReference("categories/");
-
-        dbRef.child(artifact.getCategory()).setValue(new Category(artifact.getCategory()));
     }
 }
