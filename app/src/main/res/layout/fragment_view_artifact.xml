@@ -101,28 +101,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/image"
+        android:text="@string/Media"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailViewDescription"
-        app:layout_constraintHorizontal_bias="0" />
+        app:layout_constraintTop_toBottomOf="@+id/detailViewDescription" />
 
     <ImageView
         android:id="@+id/detailViewImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="115dp"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/textViewImage"
-        app:layout_constraintTop_toBottomOf="@+id/detailViewDescription" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailViewDescription"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:srcCompat="@drawable/baseline_clear_24" />
 
     <VideoView
         android:id="@+id/detailViewVideo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="115dp"
         android:layout_marginTop="16dp"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/detailViewImage"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/detailViewImage"
+        app:layout_constraintHorizontal_bias="0.5" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

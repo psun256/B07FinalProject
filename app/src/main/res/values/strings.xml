@@ -25,6 +25,7 @@
     <string name="submit">Submit</string>
     <string name="video">video</string>
     <string name="view">View</string>
+    <string name="Media">Media</string>
     <string name="uploadPicVid">Upload Picture/Video</string>
 
     <string-array name="categories">
