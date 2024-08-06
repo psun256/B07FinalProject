@@ -58,4 +58,9 @@ public class SearchResultsTableFragment extends Fragment {
     public void showError(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
+
+    public void refresh() {
+        getParentFragmentManager().beginTransaction().detach(this).commit();
+        getParentFragmentManager().beginTransaction().attach(this).commit();
+    }
 }
