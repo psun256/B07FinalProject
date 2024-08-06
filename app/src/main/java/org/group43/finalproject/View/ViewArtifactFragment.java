@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import org.group43.finalproject.Model.Artifact;
-import org.group43.finalproject.Model.SelectedArtifactsModel;
+import org.group43.finalproject.Model.SelectedArtifactModel;
 import org.group43.finalproject.R;
 import java.util.List;
 
@@ -43,11 +43,10 @@ public class ViewArtifactFragment extends Fragment {
         video = view.findViewById(R.id.detailViewVideo);
 
         // Fetch the selected artifact
-        List<Artifact> artifacts = SelectedArtifactsModel.getSelectedArtifacts();
+        Artifact artifact = SelectedArtifactModel.getSelectedArtifact();
 
 
-        if (artifacts != null && !artifacts.isEmpty()) {
-            Artifact artifact = artifacts.get(artifacts.size() - 1);
+        if (artifact != null ) {
             lotNumber.setText(String.valueOf(artifact.getLotNumber()));
             name.setText(artifact.getName());
             category.setText(artifact.getCategory());
