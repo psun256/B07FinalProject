@@ -176,7 +176,7 @@ public class CreateReportPresenter {
         int periodHeight = lotNumHeight + 20;
         int categoryHeight = periodHeight + 20;
 
-        StaticLayout layout = new StaticLayout(artifact.getName(), nameTextPaint, 250,
+        StaticLayout layout = new StaticLayout(artifact.getName(), nameTextPaint, 200,
                 Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
         canvas.save();
         canvas.translate(20, nameHeight);
