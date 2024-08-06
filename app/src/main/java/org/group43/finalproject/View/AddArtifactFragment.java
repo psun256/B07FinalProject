@@ -94,7 +94,7 @@ public class AddArtifactFragment extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     public void initializeCategoryMenu() {
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this.requireContext(),
-                android.R.layout.simple_dropdown_item_1line, addArtifactPresenter.getCategories());
+                android.R.layout.simple_dropdown_item_1line, CategoryModel.getInstance().getCategories());
         editCategory.setAdapter(categoryAdapter);
 
         editCategory.setOnTouchListener((view, motionEvent) -> {
