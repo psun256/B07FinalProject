@@ -19,7 +19,9 @@
     <string name="remove">Remove</string>
     <string name="report">Report</string>
     <string name="reportFilterHeader">Filter</string>
-    <string name="reportHeader">Choose an option to generate a report by:</string>
+    <string name="reportHeader">Choose an option to generate a report by:</string>\
+    <string name="reportKeyHeader">Enter text to filter artifacts by:</string>
+    <string name="result">Result</string>
     <string name="reportOptionHeader">Option</string>
     <string name="reportPicDescOnly">Use picture and description only</string>
     <string name="search">Search</string>
