@@ -5,16 +5,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
 
-import androidx.annotation.NonNull;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
+import org.group43.finalproject.Model.AddArtifactListener;
+import org.group43.finalproject.Model.AddArtifactModel;
 import org.group43.finalproject.Model.Artifact;
 import org.group43.finalproject.Model.CategoryModel;
 import org.group43.finalproject.R;
@@ -24,12 +16,12 @@ import java.util.Objects;
 
 public class AddArtifactPresenter {
     private final AddArtifactFragment view;
+    private final AddArtifactModel model;
     private final ContentResolver contentRes;
-    private FirebaseDatabase db;
-    private DatabaseReference dbRef;
 
     public AddArtifactPresenter(AddArtifactFragment view) {
         this.view = view;
+        model = new AddArtifactModel();
         this.contentRes = view.requireActivity().getContentResolver();
     }
 
@@ -59,63 +51,23 @@ public class AddArtifactPresenter {
 
     public void addArtifact(Uri fileUri) {
         if (!checkEmptyFields()) {
+            view.showMessage("Please fill out all fields!");
             return;
         }
 
         Artifact artifact = createArtifact(fileUri);
-        db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
-        dbRef = db.getReference("artifacts/" + artifact.getLotNumber());
-
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        model.artifactExists(artifact, new AddArtifactListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    view.showMessage("Lot number is already taken! Artifact not added.");
-                } else {
-                    view.showMessage("Adding artifact...");
-                    if (!artifact.getFile().isEmpty()) {
-                        uploadMediaToStorage(fileUri, artifact);
-                    } else {
-                        uploadArtifactToDB(artifact);
-                    }
-                }
+            public void onSuccess(String message) {
+                view.showMessage(message);
+                uploadArtifact(artifact, fileUri);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
+            public void onError(String message) {
+                view.showMessage(message);
+            }
         });
-    }
-
-    private void uploadMediaToStorage(Uri fileUri, Artifact artifact) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        StorageReference artifactRef;
-
-        if (artifact.getFileType().equals(view.getString(R.string.image))) {
-            artifactRef = storageRef.child("img/" + artifact.getFile());
-        } else {
-            artifactRef = storageRef.child("vid/" + artifact.getFile());
-        }
-
-        artifactRef.putFile(fileUri).addOnSuccessListener(taskSnapshot -> artifactRef
-                        .getDownloadUrl().addOnSuccessListener(uri -> uploadArtifactToDB(artifact)))
-                .addOnFailureListener(e -> view.showMessage("Error: "
-                        + artifact.getFile() + " was not uploaded. Artifact not added."));
-    }
-
-    public void uploadArtifactToDB(Artifact artifact) {
-        db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
-        dbRef = db.getReference("artifacts/");
-
-        dbRef.child(String.valueOf(artifact.getLotNumber())).setValue(artifact)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        view.showMessage("Artifact successfully added!");
-                        CategoryModel.getInstance().updateCategories(artifact);
-                    } else {
-                        view.showMessage("Error: Artifact was not added.");
-                    }
-                });
     }
 
     private Artifact createArtifact(Uri fileUri) {
@@ -140,15 +92,25 @@ public class AddArtifactPresenter {
         return new Artifact(lotNum, name, category, period, desc, fileName, fileType);
     }
 
-    private boolean checkEmptyFields() {
-        if (view.getEditLotNum().getText().toString().trim().isEmpty() ||
-                view.getEditName().getText().toString().trim().isEmpty() ||
-                view.getEditCategory().getText().toString().trim().isEmpty() ||
-                view.getEditDesc().getText().toString().trim().isEmpty()) {
-            view.showMessage("Please fill out all fields!");
-            return false;
-        }
+    private void uploadArtifact(Artifact artifact, Uri fileUri) {
+        model.uploadArtifact(artifact, fileUri, new AddArtifactListener() {
+            @Override
+            public void onSuccess(String message) {
+                view.showMessage(message);
+                CategoryModel.getInstance().updateCategories(artifact);
+            }
 
-        return true;
+            @Override
+            public void onError(String message) {
+                view.showMessage(message);
+            }
+        });
+    }
+
+    private boolean checkEmptyFields() {
+        return !view.getEditLotNum().getText().toString().trim().isEmpty() &&
+                !view.getEditName().getText().toString().trim().isEmpty() &&
+                !view.getEditCategory().getText().toString().trim().isEmpty() &&
+                !view.getEditDesc().getText().toString().trim().isEmpty();
     }
 }
