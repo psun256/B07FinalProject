@@ -32,7 +32,6 @@ android {
 
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -41,9 +40,6 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.firebase.auth)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation("org.mockito:mockito-core:5.12.0")
-    androidTestImplementation("org.mockito:mockito-android:5.12.0")
-    androidTestImplementation("net.bytebuddy:byte-buddy:1.14.18")
+    testImplementation(libs.espresso.core)
+    testImplementation("org.mockito:mockito-core:5.+")
 }

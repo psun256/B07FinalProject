@@ -1,14 +1,10 @@
 package org.group43.finalproject;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.*;
-
 import org.group43.finalproject.Model.AdminLoginModel;
 import org.group43.finalproject.Presenter.AdminLoginContract;
 import org.group43.finalproject.Presenter.AdminLoginPresenter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -20,28 +16,28 @@ public class AdminLoginTest {
 
     @Test
     public void test_performAdminLogin() {
-        view = Mockito.mock();
-        model = Mockito.mock();
+        view = Mockito.mock(AdminLoginContract.View.class);
+        model = Mockito.mock(AdminLoginModel.class);
         AdminLoginPresenter presenter = new AdminLoginPresenter(view, model);
         presenter.handleAdminLogin("bob1234@gmail.com", "123456");
-        verify(model).performAdminLogin("bob1234@gmail.com", "123456", presenter);
+        Mockito.verify(model).performAdminLogin("bob1234@gmail.com", "123456", presenter);
     }
 
     @Test
     public void test_onAdminLoginSuccess() {
-        view = Mockito.mock();
-        model = Mockito.mock();
+        view = Mockito.mock(AdminLoginContract.View.class);
+        model = Mockito.mock(AdminLoginModel.class);
         AdminLoginPresenter presenter = new AdminLoginPresenter(view, model);
         presenter.onAdminLoginSuccess();
-        verify(view).viewAdminLoginSuccess("Login Success");
+        Mockito.verify(view).viewAdminLoginSuccess("Login Success");
     }
 
     @Test
     public void test_onAdminLoginFailure() {
-        view = Mockito.mock();
-        model = Mockito.mock();
+        view = Mockito.mock(AdminLoginContract.View.class);
+        model = Mockito.mock(AdminLoginModel.class);
         AdminLoginPresenter presenter = new AdminLoginPresenter(view, model);
         presenter.onAdminLoginFailure("Incorrect Email or Password");
-        verify(view).viewAdminLoginFailure("Incorrect Email or Password");
+        Mockito.verify(view).viewAdminLoginFailure("Incorrect Email or Password");
     }
 }
