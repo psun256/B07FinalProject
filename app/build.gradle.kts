@@ -30,6 +30,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation(libs.appcompat)
@@ -42,4 +43,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation("org.mockito:mockito-core:5.12.0")
+    androidTestImplementation("org.mockito:mockito-android:5.12.0")
+    androidTestImplementation("net.bytebuddy:byte-buddy:1.14.18")
 }

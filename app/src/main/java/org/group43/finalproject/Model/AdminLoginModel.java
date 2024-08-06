@@ -12,14 +12,13 @@ import org.group43.finalproject.Presenter.AdminLoginContract;
 import org.group43.finalproject.Presenter.AdminLoginPresenter;
 
 public class AdminLoginModel implements AdminLoginContract.Model {
-    FirebaseAuth mAuth;
     public void performAdminLogin(String username, String password, AdminLoginPresenter presenter) {
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Log.i("AdminLogenModel", "logged in ig");
+                    Log.i("AdminLoginModel", "logged in ig");
                     presenter.onAdminLoginSuccess();
                 } else {
                     presenter.onAdminLoginFailure("upsi");

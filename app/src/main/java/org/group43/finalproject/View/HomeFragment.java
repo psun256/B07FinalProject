@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment {
             addButton.setEnabled(false);
             removeButton.setEnabled(false);
             reportButton.setEnabled(false);
+            backButton.setEnabled(false);
         }
 
         addButton.setOnClickListener(new View.OnClickListener() {

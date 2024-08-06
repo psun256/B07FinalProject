@@ -68,7 +68,7 @@ public class AdminLoginFragment extends Fragment implements View.OnClickListener
     @Override
     public void viewAdminLoginSuccess(String message) {
         Log.i("AdminLoginFragment", message);
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
 
@@ -76,6 +76,6 @@ public class AdminLoginFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void viewAdminLoginFailure(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
