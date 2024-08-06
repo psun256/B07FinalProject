@@ -4,7 +4,6 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,7 +48,8 @@ public class AddArtifactModel {
         }
     }
 
-    private void uploadMediaToStorage(Artifact artifact, Uri fileUri, AddArtifactListener listener) {
+    private void uploadMediaToStorage(Artifact artifact, Uri fileUri,
+                                      AddArtifactListener listener) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         StorageReference artifactRef;
@@ -63,13 +63,8 @@ public class AddArtifactModel {
         artifactRef.putFile(fileUri).addOnSuccessListener(taskSnapshot -> artifactRef
                         .getDownloadUrl()
                         .addOnSuccessListener(uri -> uploadArtifactToDB(artifact, listener)))
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        listener.onError("Error: " + artifact.getFile()
-                                + " was not uploaded. Artifact not added.");
-                    }
-                });
+                .addOnFailureListener(e -> listener.onError("Error: " + artifact.getFile()
+                        + " was not uploaded. Artifact not added."));
     }
 
     public void uploadArtifactToDB(Artifact artifact, AddArtifactListener listener) {
@@ -81,11 +76,7 @@ public class AddArtifactModel {
                     if (task.isSuccessful()) {
                         listener.onSuccess("Artifact successfully added!");
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        listener.onError("Error: Artifact could not be added.");
-                    }
-                });
+                }).addOnFailureListener(e -> listener
+                        .onError("Error: Artifact could not be added."));
     }
 }
