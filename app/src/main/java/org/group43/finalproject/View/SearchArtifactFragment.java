@@ -13,8 +13,6 @@ import androidx.fragment.app.FragmentTransaction;
 import org.group43.finalproject.R;
 import org.group43.finalproject.Model.SearchParamsModel;
 
-import java.util.Objects;
-
 public class SearchArtifactFragment extends Fragment {
     EditText lotText;
     EditText nameText;
