@@ -3,6 +3,7 @@ package org.group43.finalproject.View;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -28,6 +29,7 @@ public class ViewArtifactFragment extends Fragment {
     private TextView description;
     private ImageView image;
     private VideoView video;
+    private Button backButton;
 
     @Nullable
     @Override
@@ -41,6 +43,7 @@ public class ViewArtifactFragment extends Fragment {
         description = view.findViewById(R.id.detailViewDescription);
         image = view.findViewById(R.id.detailViewImage);
         video = view.findViewById(R.id.detailViewVideo);
+        backButton = view.findViewById(R.id.backButton);
 
         // Fetch the selected artifact
         Artifact artifact = SelectedArtifactModel.getSelectedArtifact();
@@ -88,6 +91,11 @@ public class ViewArtifactFragment extends Fragment {
 
             }
         }
+
+        // Reference: https://www.youtube.com/watch?v=FcPUFp8Qrps
+        backButton.setOnClickListener(v -> {
+            getActivity().onBackPressed();
+        });
 
         return view;
     }
