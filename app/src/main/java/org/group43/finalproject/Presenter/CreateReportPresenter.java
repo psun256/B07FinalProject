@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.group43.finalproject.Model.ReportPage;
 import org.group43.finalproject.R;
 import org.group43.finalproject.Model.Artifact;
 import org.group43.finalproject.View.CreateReportFragment;
@@ -65,7 +66,8 @@ public class CreateReportPresenter {
                     PdfDocument pdf = new PdfDocument();
                     addPageToPDF(pdf, picDescOnly);
                 } else {
-                    view.showMessage("Error: No artifacts found matching filter. PDF Report not generated.");
+                    view.showMessage("Error: No artifacts found matching filter. " +
+                            "PDF Report not generated.");
                 }
             }
 
@@ -82,46 +84,47 @@ public class CreateReportPresenter {
             return;
         }
 
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, pageNum).create();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT,
+                pageNum).create();
         PdfDocument.Page page = pdf.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
+        ReportPage newPage = new ReportPage(pdf, page, canvas, artifact);
 
-        drawBasicReportInfo(canvas, artifact, pageNum);
+        drawBasicReportInfo(canvas, artifact);
 
         if (artifact.getFileType().equals(view.getResources().getString(R.string.image))) {
-            createPDFWithImage(pdf, page, artifact, canvas, picDescOnly);
+            createPDFWithImage(newPage, picDescOnly);
         } else {
-            completePDF(pdf, page, artifact, canvas, picDescOnly, null);
+            completePDF(newPage, picDescOnly, null);
         }
     }
 
-    private void createPDFWithImage(PdfDocument pdf, PdfDocument.Page page, Artifact artifact,
-                                    Canvas canvas, boolean picDescOnly) {
+    private void createPDFWithImage(ReportPage newPage, boolean picDescOnly) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imageRef = storageRef.child("img/" + artifact.getFile());
+        StorageReference imageRef = storageRef.child("img/"
+                + newPage.getArtifact().getFile());
 
         imageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(bytes -> {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
             Bitmap resizedBitmap = resizeBitmap(bitmap);
-            canvas.drawBitmap(resizedBitmap, 20, 30, null);
+           newPage.getCanvas().drawBitmap(resizedBitmap, 20, 30, null);
 
-            completePDF(pdf, page, artifact, canvas, picDescOnly, resizedBitmap);
+            completePDF(newPage, picDescOnly, resizedBitmap);
         });
     }
 
-    private void completePDF(PdfDocument pdf, PdfDocument.Page page, Artifact artifact,
-                             Canvas canvas, boolean picDescOnly, Bitmap bitmap) {
+    private void completePDF(ReportPage newPage, boolean picDescOnly, Bitmap bitmap) {
         if (!picDescOnly) {
-            drawArtifactInfoToPDF(canvas, artifact, bitmap);
+            drawArtifactInfoToPDF(newPage.getCanvas(), newPage.getArtifact(), bitmap);
         }
 
-        pdf.finishPage(page);
+        newPage.getPdf().finishPage(newPage.getPage());
         pageNum++;
-        addPageToPDF(pdf, picDescOnly);
+        addPageToPDF(newPage.getPdf(), picDescOnly);
     }
 
     private Query getArtifactsToInclude(String option, String filterText) {
-        FirebaseDatabase db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = db.getReference("artifacts/");
 
         if (option.equals(view.getResources().getString(R.string.allArtifacts))) {
@@ -137,7 +140,7 @@ public class CreateReportPresenter {
                 .equalTo(filterText);
     }
 
-    private void drawBasicReportInfo(Canvas canvas, Artifact artifact, int pageNum) {
+    private void drawBasicReportInfo(Canvas canvas, Artifact artifact) {
         Paint paint = new Paint();
         TextPaint textPaint = new TextPaint();
 
@@ -147,7 +150,8 @@ public class CreateReportPresenter {
             textPaint.setTextSize(11);
         }
 
-        StaticLayout descLayout = new StaticLayout(artifact.getDescription(), textPaint, 340, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        StaticLayout descLayout = new StaticLayout(artifact.getDescription(), textPaint, 340,
+                Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
         canvas.save();
         canvas.translate(240, 30);
         descLayout.draw(canvas);
@@ -160,13 +164,11 @@ public class CreateReportPresenter {
     private void drawArtifactInfoToPDF(Canvas canvas, Artifact artifact, Bitmap bitmap) {
         TextPaint nameTextPaint = new TextPaint();
         Paint paint = new Paint();
+        int nameHeight = 30;
 
         nameTextPaint.setTextSize(16);
-        int nameHeight;
 
-        if (bitmap == null) {
-            nameHeight = 30;
-        } else {
+        if (bitmap != null) {
             nameHeight = bitmap.getHeight() + 50;
         }
 
@@ -174,7 +176,8 @@ public class CreateReportPresenter {
         int periodHeight = lotNumHeight + 20;
         int categoryHeight = periodHeight + 20;
 
-        StaticLayout layout = new StaticLayout(artifact.getName(), nameTextPaint, 250, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        StaticLayout layout = new StaticLayout(artifact.getName(), nameTextPaint, 250,
+                Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
         canvas.save();
         canvas.translate(20, nameHeight);
         layout.draw(canvas);
@@ -184,7 +187,8 @@ public class CreateReportPresenter {
         canvas.drawText(view.getResources().getString(R.string.period) + ": " + artifact.getPeriod(), 20, periodHeight, paint);
 
         canvas.drawText(view.getResources().getString(R.string.category) + ": ", 20, categoryHeight, paint);
-        layout = new StaticLayout(artifact.getCategory(), new TextPaint(), 140, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        layout = new StaticLayout(artifact.getCategory(), new TextPaint(), 140,
+                Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
         canvas.save();
         canvas.translate(75, categoryHeight - 11);
         layout.draw(canvas);
@@ -194,7 +198,8 @@ public class CreateReportPresenter {
     private void downloadPDF(PdfDocument pdf) {
         try {
             File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-            File file = new File(downloadsDir, "TAAM-Report-" + UUID.randomUUID().toString() + ".pdf");
+            File file = new File(downloadsDir, "TAAM-Report-" + UUID.randomUUID().toString()
+                    + ".pdf");
             FileOutputStream output = new FileOutputStream(file);
 
             pdf.writeTo(output);
