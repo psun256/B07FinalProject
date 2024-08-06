@@ -8,9 +8,12 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.group43.finalproject.R;
 import org.group43.finalproject.Model.SearchParamsModel;
+
+import java.util.Objects;
 
 public class SearchArtifactFragment extends Fragment {
     EditText lotText;
@@ -27,13 +30,29 @@ public class SearchArtifactFragment extends Fragment {
         categoryText = view.findViewById(R.id.searchCategory);
         periodText = view.findViewById(R.id.searchPeriod);
         Button resultButton = view.findViewById(R.id.searchButton);
+        Button backButton = view.findViewById(R.id.backButton);
+        Button viewButton = view.findViewById(R.id.viewButton);
+        SearchResultsTableFragment table = (SearchResultsTableFragment) getChildFragmentManager().findFragmentById(R.id.fragmentSearchTable);
+        setSearchParams();
+
         resultButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setSearchParams();
-                refreshTable();
+                table.refresh();
             }
         });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { loadFragment(new HomeFragment());}
+        });
+
+        viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { loadFragment(new ViewArtifactFragment());}
+        });
+
         return view;
     }
 
@@ -44,8 +63,10 @@ public class SearchArtifactFragment extends Fragment {
         SearchParamsModel.setPeriod(periodText.getText().toString());
     }
 
-    protected void refreshTable() {
-        getActivity().getSupportFragmentManager().beginTransaction().detach(this).commitAllowingStateLoss();
-        getActivity().getSupportFragmentManager().beginTransaction().attach(this).commitAllowingStateLoss();
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
