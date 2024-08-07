@@ -41,7 +41,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="org.group43.finalproject.View.ArtifactTableFragment"
+        android:name="org.group43.finalproject.View.AllArtifactsTableFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
