@@ -31,7 +31,6 @@ public class SearchArtifactFragment extends Fragment {
         Button backButton = view.findViewById(R.id.backButton);
         Button viewButton = view.findViewById(R.id.viewButton);
         SearchResultsTableFragment table = (SearchResultsTableFragment) getChildFragmentManager().findFragmentById(R.id.fragmentSearchTable);
-        setSearchParams();
 
         resultButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +42,10 @@ public class SearchArtifactFragment extends Fragment {
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { loadFragment(new HomeFragment());}
+            public void onClick(View v) {
+                resetSearchParams();
+                loadFragment(new HomeFragment());
+            }
         });
 
         viewButton.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +54,14 @@ public class SearchArtifactFragment extends Fragment {
         });
 
         return view;
+    }
+
+    protected void resetSearchParams() {
+        SearchParamsModel.setLot("");
+        SearchParamsModel.setName("");
+        SearchParamsModel.setCategory("");
+        SearchParamsModel.setPeriod("");
+
     }
 
     protected void setSearchParams() {
