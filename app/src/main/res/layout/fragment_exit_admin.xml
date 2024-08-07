@@ -9,8 +9,8 @@
         android:id="@+id/signOutButton"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="19dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:text="@string/signOut"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -23,6 +23,8 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/backgroundLight"
+        app:subtitleTextColor="@color/backgroundLight"
         tools:layout_editor_absoluteX="1dp" />
 
     <TextView

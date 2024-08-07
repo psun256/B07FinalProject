@@ -17,11 +17,11 @@ public class AdminLoginPresenter implements AdminLoginContract.Presenter {
 
     @Override
     public void onAdminLoginSuccess() {
-        view.viewAdminLoginSuccess("Login Success");
+        view.viewAdminLoginSuccess("Sucessfully signed in");
     }
 
     @Override
-    public void onAdminLoginFailure(String message) {
+    public void onAdminLoginFailure() {
         view.viewAdminLoginFailure("Incorrect Email or Password");
     }
 }

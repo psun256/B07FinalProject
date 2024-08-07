@@ -21,7 +21,7 @@ public class AdminLoginModel implements AdminLoginContract.Model {
                     Log.i("AdminLoginModel", "logged in ig");
                     presenter.onAdminLoginSuccess();
                 } else {
-                    presenter.onAdminLoginFailure("upsi");
+                    presenter.onAdminLoginFailure();
                 }
             }
         });

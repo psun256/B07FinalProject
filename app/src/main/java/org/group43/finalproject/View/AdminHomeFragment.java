@@ -1,26 +1,32 @@
 package org.group43.finalproject.View;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import org.group43.finalproject.Model.Artifact;
+import org.group43.finalproject.Model.SelectedArtifactModel;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.group43.finalproject.R;
 
 public class AdminHomeFragment extends Fragment {
 
+    private final String TAG = "AdminHomeFragment";
+
     private FirebaseAuth mAuth;
 
     Button addButton;
     Button signOutButton;
-    Button backButton;
     Button removeButton;
     Button reportButton;
     Button searchButton;
@@ -42,6 +48,7 @@ public class AdminHomeFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth == null || mAuth.getCurrentUser() == null) {
+            Log.e(TAG, "User not logged in");
             addButton.setEnabled(false);
             removeButton.setEnabled(false);
             reportButton.setEnabled(false);
@@ -53,14 +60,6 @@ public class AdminHomeFragment extends Fragment {
         });
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                getActivity().recreate();
-            }
-        });
-
-        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { loadFragment(new ExitAdminFragment());}
         });
@@ -82,7 +81,14 @@ public class AdminHomeFragment extends Fragment {
 
         viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { loadFragment(new ViewArtifactFragment()); }
+            public void onClick(View v) {
+                Artifact a = SelectedArtifactModel.getSelectedArtifact();
+                if (a == null) {
+                    Toast.makeText(getContext(), "Please select an artifact", Toast.LENGTH_SHORT).show();
+                } else {
+                    loadFragment(new ViewArtifactFragment());
+                }
+            }
         });
 
         return view;
