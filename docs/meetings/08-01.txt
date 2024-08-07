@@ -1,0 +1,41 @@
+Meeting summaries for August 1st
+
+Yolanda
+1.  What have I accomplished since the previous meeting?
+  - Generated report displays required text for all options
+2. What will I finish before the next meeting?
+  - Work on adding images to report
+3. What challenges / questions / concerns am I currently facing?
+  - None
+
+Faisal
+1.  What have I accomplished since the previous meeting?
+  - Start implementation of view
+2. What will I finish before the next meeting?
+  - Start making queries to get data
+3. What challenges / questions / concerns am I currently facing?
+  - None
+
+Mingyuan
+1.  What have I accomplished since the previous meeting?
+  - Refactoring code for table so other group members can utilize it
+2. What will I finish before the next meeting?
+  - Finished refactoring and work on pages
+3. What challenges / questions / concerns am I currently facing?
+  - None
+
+Steve
+1.  What have I accomplished since the previous meeting?
+  - Finished an algorithm for searching
+2. What will I finish before the next meeting?
+  - Work on search table
+3. What challenges / questions / concerns am I currently facing?
+  - None
+
+Paul
+1. What have I accomplished since the previous meeting?
+  - Implemented crude sign out functionality
+2. What will I finish before the next meeting?
+  - working on improving ui
+3. What challenges / questions / concerns am I currently facing?
+  - None
