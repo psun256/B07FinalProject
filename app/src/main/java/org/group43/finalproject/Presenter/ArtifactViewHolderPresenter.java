@@ -1,59 +1,43 @@
 package org.group43.finalproject.Presenter;
 
-import android.widget.Toast;
+import android.annotation.SuppressLint;
 
 import org.group43.finalproject.Model.Artifact;
 import org.group43.finalproject.Model.ArtifactAdapter;
-import org.group43.finalproject.Model.SelectedArtifactsModel;
+import org.group43.finalproject.Model.SelectedArtifactModel;
 
 public class ArtifactViewHolderPresenter {
     private final ArtifactAdapter.ArtifactViewHolder holder;
+    private ArtifactAdapter artifactAdapter;
     private Artifact artifact;
-    private final SelectedArtifactsModel selectedArtifactsModel;
+    private final SelectedArtifactModel selectedArtifactsModel;
+
     public ArtifactViewHolderPresenter(ArtifactAdapter.ArtifactViewHolder holder) {
         this.holder = holder;
-        selectedArtifactsModel = new SelectedArtifactsModel();
+        selectedArtifactsModel = new SelectedArtifactModel();
     }
 
     public void setArtifact(Artifact artifact) {
         this.artifact = artifact;
-
-        holder.getLotNumText().setText(String.valueOf(artifact.getLotNumber()));
-        holder.getNameText().setText(artifact.getName());
-        holder.getCategoryText().setText(artifact.getCategory());
-        holder.getPeriodText().setText(artifact.getPeriod());
-
-        holder.getSelected().setOnCheckedChangeListener((compoundButton, checked) -> {
-            if (checked) {
-                onSelect();
-            } else {
-                onDeselect();
-            }
-        });
+        holder.displayArtifact(
+                artifact,
+                artifact.equals(selectedArtifactsModel.getSelectedArtifact())
+        );
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void onSelect() {
         selectedArtifactsModel.selectArtifact(artifact);
-        //FIXME: The toast is for debug purpose only! remove it after debugging is done.
-
-        Toast.makeText(
-                holder.getSelected().getContext(),
-                "selected Lot# " + artifact.getLotNumber()
-                        + "\nTotal selected: "
-                        + selectedArtifactsModel.getSelectedArtifacts().size(),
-                Toast.LENGTH_SHORT
-        ).show();
+        artifactAdapter.notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void onDeselect() {
-        selectedArtifactsModel.deselectArtifact(artifact);
-        //FIXME: The toast is for debug purpose only! remove it after debugging is done.
-        Toast.makeText(
-                holder.getSelected().getContext(),
-                "Deselected Lot# " + artifact.getLotNumber()
-                        + "\nTotal selected: "
-                        + selectedArtifactsModel.getSelectedArtifacts().size(),
-                Toast.LENGTH_SHORT
-        ).show();
+        selectedArtifactsModel.clearSelection();
+        artifactAdapter.notifyDataSetChanged();
+    }
+
+    public void setAdapter(ArtifactAdapter artifactAdapter) {
+        this.artifactAdapter = artifactAdapter;
     }
 }

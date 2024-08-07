@@ -35,7 +35,7 @@ public class AddArtifactPresenter {
     }
 
     public ArrayList<String> getCategories() {
-        db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
+        db = FirebaseDatabase.getInstance();
         dbRef = db.getReference("categories/");
         ArrayList<String> categories = new ArrayList<>();
 
