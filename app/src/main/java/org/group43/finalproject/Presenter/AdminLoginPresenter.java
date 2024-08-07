@@ -10,9 +10,9 @@ public class AdminLoginPresenter implements AdminLoginContract.Presenter {
         this.view = view;
         this.model = model;
     }
+
     @Override
     public void handleAdminLogin(String username, String password) {
-        AdminLoginModel model = new AdminLoginModel();
         model.performAdminLogin(username, password, this);
     }
 

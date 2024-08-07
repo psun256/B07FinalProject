@@ -30,8 +30,8 @@ android {
     }
 }
 
-dependencies {
 
+dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -42,6 +42,8 @@ dependencies {
     implementation(libs.picasso)
     implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
+    testImplementation(libs.espresso.core)
+    testImplementation("org.mockito:mockito-core:5.+")
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }

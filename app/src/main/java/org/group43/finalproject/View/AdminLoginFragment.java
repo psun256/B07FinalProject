@@ -33,7 +33,6 @@ public class AdminLoginFragment extends Fragment implements View.OnClickListener
     EditText loginEmail, loginPassword;
     Button loginButton;
     Toolbar toolbar;
-
     FirebaseAuth mAuth;
 
     private AdminLoginPresenter presenter;
@@ -46,6 +45,7 @@ public class AdminLoginFragment extends Fragment implements View.OnClickListener
         loginEmail = view.findViewById(R.id.loginEmail);
         loginPassword = view.findViewById(R.id.loginPassword);
         loginButton = view.findViewById(R.id.loginButton);
+
         toolbar = view.findViewById(R.id.toolbar);
 
         mAuth = FirebaseAuth.getInstance();
@@ -96,6 +96,6 @@ public class AdminLoginFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void viewAdminLoginFailure(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

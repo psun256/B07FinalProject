@@ -11,8 +11,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import android.widget.Button;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -21,7 +38,6 @@ import org.group43.finalproject.R;
 import java.util.Objects;
 
 public class ExitAdminFragment extends Fragment {
-
     private final String TAG = "ExitAdminFragment";
 
     private FirebaseAuth mAuth;
@@ -34,7 +50,8 @@ public class ExitAdminFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exit_admin, container, false);
 
-        signOutButton = view.findViewById(R.id.signInButton);
+        signOutButton = view.findViewById(R.id.signOutButton);
+
         toolbar = view.findViewById(R.id.toolbar);
 
         mAuth = FirebaseAuth.getInstance();

@@ -12,12 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.auth.FirebaseAuth;
 import org.group43.finalproject.Model.Artifact;
 import org.group43.finalproject.Model.SelectedArtifactModel;
 import org.group43.finalproject.R;
 
 public class HomeFragment extends Fragment {
-
+  
     Button signInButton;
     Button searchButton;
     Button viewButton;
@@ -27,9 +28,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        signInButton    = view.findViewById((R.id.signInButton));
-        searchButton    = view.findViewById((R.id.searchButton));
-        viewButton      = view.findViewById((R.id.viewButton));
+        signInButton = view.findViewById((R.id.signInButton));
+        searchButton = view.findViewById((R.id.searchButton));
+        viewButton = view.findViewById((R.id.viewButton));
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override

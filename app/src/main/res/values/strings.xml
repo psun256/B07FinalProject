@@ -34,6 +34,7 @@
     <string name="uploadPicVid">Upload Picture/Video</string>
     <string name="signOut">Sign Out</string>
     <string name="logoutText">Are you sure you want to sign out?</string>
+
     <string name="signinText">Please enter your email and password.</string>
     <string name="signinButton">Sign in</string>
     <string name="signInToolbar">Sign In</string>

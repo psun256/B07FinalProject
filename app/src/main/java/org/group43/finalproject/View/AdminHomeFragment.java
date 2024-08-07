@@ -38,7 +38,7 @@ public class AdminHomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_admin_home, container, false);
 
         addButton = view.findViewById((R.id.addButton));
-        signOutButton = view.findViewById((R.id.signInButton));
+        signOutButton = view.findViewById((R.id.signOutButton));
         removeButton = view.findViewById((R.id.removeButton));
         reportButton = view.findViewById(R.id.reportButton);
         searchButton = view.findViewById((R.id.searchButton));
