@@ -11,7 +11,6 @@ googleGmsGoogleServices = "4.4.2"
 firebaseDatabase = "21.0.0"
 firebaseAuth = "23.0.0"
 firebaseStorage = "21.0.0"
-firebaseAuth = "23.0.0"
 firebaseFirestore = "25.0.0"
 
 

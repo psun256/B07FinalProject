@@ -39,7 +39,6 @@ public class AdminHomeFragment extends Fragment {
 
         addButton = view.findViewById((R.id.addButton));
         signOutButton = view.findViewById((R.id.signOutButton));
-        backButton = view.findViewById((R.id.backButton));
         removeButton = view.findViewById((R.id.removeButton));
         reportButton = view.findViewById(R.id.reportButton);
         searchButton = view.findViewById((R.id.searchButton));

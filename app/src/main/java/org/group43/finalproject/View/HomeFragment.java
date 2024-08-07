@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 import org.group43.finalproject.Model.Artifact;
-import org.group43.finalproject.Model.SelectedArtifactModel
+import org.group43.finalproject.Model.SelectedArtifactModel;
 import org.group43.finalproject.R;
 
 public class HomeFragment extends Fragment {

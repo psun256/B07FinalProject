@@ -29,7 +29,7 @@ public class AdminLoginTest {
         model = Mockito.mock(AdminLoginModel.class);
         AdminLoginPresenter presenter = new AdminLoginPresenter(view, model);
         presenter.onAdminLoginSuccess();
-        Mockito.verify(view).viewAdminLoginSuccess("Login Success");
+        Mockito.verify(view).viewAdminLoginSuccess("Sucessfully signed in");
     }
 
     @Test
@@ -37,7 +37,7 @@ public class AdminLoginTest {
         view = Mockito.mock(AdminLoginContract.View.class);
         model = Mockito.mock(AdminLoginModel.class);
         AdminLoginPresenter presenter = new AdminLoginPresenter(view, model);
-        presenter.onAdminLoginFailure("Incorrect Email or Password");
+        presenter.onAdminLoginFailure();
         Mockito.verify(view).viewAdminLoginFailure("Incorrect Email or Password");
     }
 }
