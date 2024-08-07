@@ -1,6 +1,7 @@
 package org.group43.finalproject.Model;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -41,7 +42,28 @@ public class ArtifactsRepository {
     }
 
     public void searchArtifacts(DataCallback<List<Artifact>> callback) {
-        //TODO: add search parameters above and put your searching algorithm here!
+        artifactsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String lot = SearchParamsModel.getLot();
+                String name = SearchParamsModel.getName();
+                String category = SearchParamsModel.getCategory();
+                String period = SearchParamsModel.getPeriod();
+                List<Artifact> artifacts = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Artifact artifact = snapshot.getValue(Artifact.class);
+                    if (SearchParamsModel.matchesInSearch(artifact,lot,name,category,period)) {
+                        artifacts.add(artifact);
+                    }
+                }
+                callback.onSuccess(artifacts);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                callback.onFailure(error.toException());
+            }
+        });
     }
 
     public interface DataCallback<T> {

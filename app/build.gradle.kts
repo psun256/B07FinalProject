@@ -39,6 +39,8 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
     implementation(libs.firebase.auth)
+    implementation(libs.picasso)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     testImplementation(libs.espresso.core)
     testImplementation("org.mockito:mockito-core:5.+")

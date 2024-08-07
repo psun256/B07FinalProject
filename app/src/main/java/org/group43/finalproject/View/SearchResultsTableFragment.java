@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import org.group43.finalproject.Model.Artifact;
 import org.group43.finalproject.Model.ArtifactAdapter;
-import org.group43.finalproject.Presenter.AllArtifactsTablePresenter;
 import org.group43.finalproject.Presenter.SearchResultsTablePresenter;
 import org.group43.finalproject.R;
 
@@ -58,5 +57,10 @@ public class SearchResultsTableFragment extends Fragment {
 
     public void showError(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void refresh() {
+        getParentFragmentManager().beginTransaction().detach(this).commit();
+        getParentFragmentManager().beginTransaction().attach(this).commit();
     }
 }

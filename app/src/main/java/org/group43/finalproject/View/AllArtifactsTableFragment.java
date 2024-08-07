@@ -1,7 +1,7 @@
 package org.group43.finalproject.View;
 
 import android.os.Bundle;
-
+import android.widget.Button;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 import org.group43.finalproject.Model.Artifact;
 import org.group43.finalproject.Model.ArtifactAdapter;
 import org.group43.finalproject.Presenter.AllArtifactsTablePresenter;
+import org.group43.finalproject.Presenter.RemoveArtifactPresenter;
 import org.group43.finalproject.R;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class AllArtifactsTableFragment extends Fragment {
     public static AllArtifactsTableFragment newInstance() {
         return new AllArtifactsTableFragment();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

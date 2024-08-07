@@ -87,7 +87,7 @@
         <EditText
             android:id="@+id/editDescription"
             android:layout_width="wrap_content"
-            android:layout_height="210dp"
+            android:layout_height="190dp"
             android:width="488dp"
             android:height="300dp"
             android:ems="10"
@@ -135,14 +135,19 @@
             android:id="@+id/addButton"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="106dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="105dp"
             android:layout_marginBottom="30dp"
             android:height="60dp"
             android:text="@string/add"
             android:textColorLink="@color/primaryDark"
             android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/clearAllButton"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/clearAll"
+            android:translationX="130dp"
+            android:translationY="20dp" />
 
     </LinearLayout>
 
