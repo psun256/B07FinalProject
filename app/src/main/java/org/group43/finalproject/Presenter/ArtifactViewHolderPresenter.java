@@ -40,4 +40,5 @@ public class ArtifactViewHolderPresenter {
     public void setAdapter(ArtifactAdapter artifactAdapter) {
         this.artifactAdapter = artifactAdapter;
     }
+
 }
