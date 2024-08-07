@@ -11,6 +11,7 @@ import org.group43.finalproject.R;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -21,12 +22,17 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase db = FirebaseDatabase.getInstance("https://b07finalproject-81ec0-default-rtdb.firebaseio.com/");
         DatabaseReference dbRef = db.getReference("categories/");
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
         for (String category : this.getResources().getStringArray(R.array.categories)) {
             dbRef.child(category).setValue(new Category(category));
         }
 
         if (savedInstanceState == null) {
-            loadFragment(new HomeFragment());
+            if (mAuth != null && mAuth.getCurrentUser() != null)
+                loadFragment(new AdminHomeFragment());
+            else
+                loadFragment(new HomeFragment());
         }
     }
 

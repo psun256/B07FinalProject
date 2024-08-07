@@ -19,8 +19,6 @@ public class SelectedArtifactModel {
     public static @Nullable Artifact getSelectedArtifact() {
         return selectedArtifact;
     }
-
-
 }
 
 
