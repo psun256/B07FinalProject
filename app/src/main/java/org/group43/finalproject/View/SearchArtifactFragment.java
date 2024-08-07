@@ -44,7 +44,7 @@ public class SearchArtifactFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 resetSearchParams();
-                loadFragment(new HomeFragment());
+                getActivity().getOnBackPressedDispatcher().onBackPressed();
             }
         });
 
