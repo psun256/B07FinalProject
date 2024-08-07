@@ -20,17 +20,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.group43.finalproject.R;
 
 public class AdminHomeFragment extends Fragment {
-
     private final String TAG = "AdminHomeFragment";
 
     private FirebaseAuth mAuth;
 
-    Button addButton;
-    Button signOutButton;
-    Button removeButton;
-    Button reportButton;
-    Button searchButton;
-    Button viewButton;
+    private Button addButton;
+    private Button signOutButton;
+    private Button removeButton;
+    private Button reportButton;
+    private Button searchButton;
+    private Button viewButton;
 
     @Nullable
     @Override
@@ -46,6 +45,7 @@ public class AdminHomeFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
 
+        // extra security check in case admin screen is loaded as a regular user
         if (mAuth == null || mAuth.getCurrentUser() == null) {
             Log.e(TAG, "User not logged in");
             addButton.setEnabled(false);
@@ -53,40 +53,22 @@ public class AdminHomeFragment extends Fragment {
             reportButton.setEnabled(false);
         }
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new AddArtifactFragment());}
-        });
+        addButton.setOnClickListener(v -> loadFragment(new AddArtifactFragment()));
 
-        signOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new ExitAdminFragment());}
-        });
+        signOutButton.setOnClickListener(v -> loadFragment(new ExitAdminFragment()));
 
-        removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new RemoveArtifactFragment());}
-        });
+        removeButton.setOnClickListener(v -> loadFragment(new RemoveArtifactFragment()));
 
-        reportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new CreateReportFragment());}
-        });
+        reportButton.setOnClickListener(v -> loadFragment(new CreateReportFragment()));
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new SearchArtifactFragment()); }
-        });
+        searchButton.setOnClickListener(v -> loadFragment(new SearchArtifactFragment()));
 
-        viewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Artifact a = SelectedArtifactModel.getSelectedArtifact();
-                if (a == null) {
-                    Toast.makeText(getContext(), "Please select an artifact", Toast.LENGTH_SHORT).show();
-                } else {
-                    loadFragment(new ViewArtifactFragment());
-                }
+        viewButton.setOnClickListener(v -> {
+            Artifact a = SelectedArtifactModel.getSelectedArtifact();
+            if (a == null) {
+                Toast.makeText(getContext(), "Please select an artifact", Toast.LENGTH_SHORT).show();
+            } else {
+                loadFragment(new ViewArtifactFragment());
             }
         });
 

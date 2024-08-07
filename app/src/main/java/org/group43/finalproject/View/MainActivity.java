@@ -29,10 +29,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (savedInstanceState == null) {
-            if (mAuth != null && mAuth.getCurrentUser() != null)
+            if (mAuth != null && mAuth.getCurrentUser() != null) {
                 loadFragment(new AdminHomeFragment());
-            else
+            }
+            else {
                 loadFragment(new HomeFragment());
+            }
         }
     }
 

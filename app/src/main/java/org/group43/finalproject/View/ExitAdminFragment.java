@@ -4,32 +4,18 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.*;
-import android.widget.*;
+import android.widget.Button;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import android.widget.Button;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -42,8 +28,8 @@ public class ExitAdminFragment extends Fragment {
 
     private FirebaseAuth mAuth;
 
-    Button signOutButton;
-    Toolbar toolbar;
+    private Button signOutButton;
+    private Toolbar toolbar;
 
     @Nullable
     @Override
@@ -65,17 +51,14 @@ public class ExitAdminFragment extends Fragment {
                             R.color.backgroundLight), PorterDuff.Mode.SRC_IN);
         toolbar.setNavigationOnClickListener(v -> requireActivity().getOnBackPressedDispatcher().onBackPressed());
 
-        signOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mAuth != null && mAuth.getCurrentUser() != null) {
-                    Log.i(TAG, "User " + mAuth.getCurrentUser().getEmail() + " logged out");
-                    mAuth.signOut();
-                }
-                Toast.makeText(getContext(), getString(R.string.signOutMessage), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+        signOutButton.setOnClickListener(v -> {
+            if (mAuth != null && mAuth.getCurrentUser() != null) {
+                Log.i(TAG, "User " + mAuth.getCurrentUser().getEmail() + " logged out");
+                mAuth.signOut();
             }
+            Toast.makeText(getContext(), getString(R.string.signOutMessage), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
         });
 
         return view;

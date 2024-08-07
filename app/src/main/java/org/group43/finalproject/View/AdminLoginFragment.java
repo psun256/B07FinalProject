@@ -27,13 +27,13 @@ import org.group43.finalproject.R;
 import java.util.Objects;
 
 public class AdminLoginFragment extends Fragment implements View.OnClickListener, AdminLoginContract.View {
-
     private final String TAG = "AdminLoginFragment";
 
-    EditText loginEmail, loginPassword;
-    Button loginButton;
-    Toolbar toolbar;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
+
+    private EditText loginEmail, loginPassword;
+    private Button loginButton;
+    private Toolbar toolbar;
 
     private AdminLoginPresenter presenter;
 

@@ -12,16 +12,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.auth.FirebaseAuth;
 import org.group43.finalproject.Model.Artifact;
 import org.group43.finalproject.Model.SelectedArtifactModel;
 import org.group43.finalproject.R;
 
 public class HomeFragment extends Fragment {
+    private final String TAG = "HomeFragment";
   
-    Button signInButton;
-    Button searchButton;
-    Button viewButton;
+    private Button signInButton;
+    private Button searchButton;
+    private Button viewButton;
 
     @Nullable
     @Override
@@ -32,25 +32,16 @@ public class HomeFragment extends Fragment {
         searchButton = view.findViewById((R.id.searchButton));
         viewButton = view.findViewById((R.id.viewButton));
 
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new AdminLoginFragment());}
-        });
+        signInButton.setOnClickListener(v -> loadFragment(new AdminLoginFragment()));
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new SearchArtifactFragment()); }
-        });
+        searchButton.setOnClickListener(v -> loadFragment(new SearchArtifactFragment()));
 
-        viewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Artifact a = SelectedArtifactModel.getSelectedArtifact();
-                if (a == null) {
-                    Toast.makeText(getContext(), "Please select an artifact", Toast.LENGTH_SHORT).show();
-                } else {
-                    loadFragment(new ViewArtifactFragment());
-                }
+        viewButton.setOnClickListener(v -> {
+            Artifact a = SelectedArtifactModel.getSelectedArtifact();
+            if (a == null) {
+                Toast.makeText(getContext(), "Please select an artifact", Toast.LENGTH_SHORT).show();
+            } else {
+                loadFragment(new ViewArtifactFragment());
             }
         });
 
