@@ -78,5 +78,10 @@
     <string name="signOutMessage">Successfully signed out</string>
     <string name="signOutToolbar">Sign Out</string>
     <string name="signInSuccess">Successfully signed in</string>
+    <string name="forgotPassword">Forgot Password?</string>
+    <string name="resetPassword">Reset Password?</string>
+    <string name="resetPasswordNo">Cancel</string>
+    <string name="resetPasswordMessage">If an account with this email exists, a password reset link will be sent.</string>
+    <string name="resetPasswordOk">Send</string>
 
 </resources>

@@ -7,11 +7,13 @@ import android.util.Log;
 import android.view.*;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.PorterDuff;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +34,7 @@ public class AdminLoginFragment extends Fragment implements View.OnClickListener
     private FirebaseAuth mAuth;
 
     private EditText loginEmail, loginPassword;
+    private TextView forgotPassword;
     private Button loginButton;
     private Toolbar toolbar;
 
@@ -45,12 +48,14 @@ public class AdminLoginFragment extends Fragment implements View.OnClickListener
         loginEmail = view.findViewById(R.id.loginEmail);
         loginPassword = view.findViewById(R.id.loginPassword);
         loginButton = view.findViewById(R.id.loginButton);
+        forgotPassword = view.findViewById(R.id.forgotPassword);
 
         toolbar = view.findViewById(R.id.toolbar);
 
         mAuth = FirebaseAuth.getInstance();
 
         loginButton.setOnClickListener(this);
+        forgotPassword.setOnClickListener(this);
 
         AppCompatActivity activityToolBar = (AppCompatActivity)getActivity();
         activityToolBar.setSupportActionBar(toolbar);
@@ -70,6 +75,33 @@ public class AdminLoginFragment extends Fragment implements View.OnClickListener
         if (view.getId() == R.id.loginButton) {
             loginCheck();
         }
+        if (view.getId() == R.id.forgotPassword) {
+            resetPassword();
+        }
+    }
+
+    public void resetPassword() {
+        // alert box to confirm password reset
+        String email = loginEmail.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            loginEmail.setError(getString(R.string.loginEmailEmpty));
+            loginEmail.requestFocus();
+            return;
+        }
+        Log.i(TAG, "Resetting password");
+        new AlertDialog.Builder(getContext())
+                .setTitle(R.string.resetPassword)
+                .setMessage(R.string.resetPasswordMessage)
+                .setPositiveButton(R.string.resetPasswordOk, (dialog, which) -> {
+                    if (TextUtils.isEmpty(email)) {
+                        loginEmail.setError(getString(R.string.loginEmailEmpty));
+                        loginEmail.requestFocus();
+                    } else {
+                        presenter.resetPassword(email);
+                    }
+                })
+                .setNegativeButton(R.string.resetPasswordNo, (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
     private void loginCheck() {
@@ -96,6 +128,11 @@ public class AdminLoginFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void viewAdminLoginFailure(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void viewPasswordResetSuccess(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -16,4 +16,11 @@ public class AdminLoginModel implements AdminLoginContract.Model {
             }
         });
     }
+
+    public void performPasswordReset(String email, AdminLoginPresenter presenter) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+            presenter.onPasswordResetSuccess();
+        });
+    }
 }
