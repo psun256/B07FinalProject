@@ -83,7 +83,7 @@ public class AdminHomeFragment extends Fragment {
             public void onClick(View v) {
                 Artifact a = SelectedArtifactModel.getSelectedArtifact();
                 if (a == null) {
-                    cToast.makeText(getContext(), "Please select an artifact", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Please select an artifact", Toast.LENGTH_SHORT).show();
                 } else {
                     loadFragment(new ViewArtifactFragment());
                 }
