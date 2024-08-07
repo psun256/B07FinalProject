@@ -12,8 +12,8 @@ public class AdminLoginPresenter implements AdminLoginContract.Presenter {
     }
 
     @Override
-    public void handleAdminLogin(String username, String password) {
-        model.performAdminLogin(username, password, this);
+    public void handleAdminLogin(String email, String password) {
+        model.performAdminLogin(email, password, this);
     }
 
     @Override
@@ -23,6 +23,12 @@ public class AdminLoginPresenter implements AdminLoginContract.Presenter {
 
     @Override
     public void onAdminLoginFailure() {
-        view.viewAdminLoginFailure("Incorrect Email or Password");
+        view.viewAdminLoginFailure("Incorrect email or password");
     }
+
+    @Override
+    public void resetPassword(String email) { model.performPasswordReset(email, this); }
+
+    @Override
+    public void onPasswordResetSuccess() { view.viewPasswordResetSuccess("Password reset email sent"); }
 }

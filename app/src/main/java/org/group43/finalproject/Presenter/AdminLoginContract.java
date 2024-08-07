@@ -2,17 +2,20 @@ package org.group43.finalproject.Presenter;
 
 public interface AdminLoginContract {
     interface Model {
-        void performAdminLogin(String username, String password, AdminLoginPresenter presenter);
+        void performAdminLogin(String email, String password, AdminLoginPresenter presenter);
     }
 
     interface View {
         void viewAdminLoginSuccess(String message);
         void viewAdminLoginFailure(String message);
+        void viewPasswordResetSuccess(String message);
     }
 
     interface Presenter {
-        void handleAdminLogin(String username, String password);
+        void handleAdminLogin(String email, String password);
         void onAdminLoginSuccess();
         void onAdminLoginFailure();
+        void resetPassword(String email);
+        void onPasswordResetSuccess();
     }
 }

@@ -38,6 +38,24 @@ public class AdminLoginTest {
         model = Mockito.mock(AdminLoginModel.class);
         AdminLoginPresenter presenter = new AdminLoginPresenter(view, model);
         presenter.onAdminLoginFailure();
-        Mockito.verify(view).viewAdminLoginFailure("Incorrect Email or Password");
+        Mockito.verify(view).viewAdminLoginFailure("Incorrect email or password");
+    }
+
+    @Test
+    public void test_resetPassword() {
+        view = Mockito.mock(AdminLoginContract.View.class);
+        model = Mockito.mock(AdminLoginModel.class);
+        AdminLoginPresenter presenter = new AdminLoginPresenter(view, model);
+        presenter.resetPassword("bob1234@gmail.com");
+        Mockito.verify(model).performPasswordReset("bob1234@gmail.com", presenter);
+    }
+
+    @Test
+    public void test_onPasswordResetSuccess() {
+        view = Mockito.mock(AdminLoginContract.View.class);
+        model = Mockito.mock(AdminLoginModel.class);
+        AdminLoginPresenter presenter = new AdminLoginPresenter(view, model);
+        presenter.onPasswordResetSuccess();
+        Mockito.verify(view).viewPasswordResetSuccess("Password reset email sent");
     }
 }
