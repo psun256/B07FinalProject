@@ -33,8 +33,10 @@ Start working on remove functionality.
 Faisal:
 
 1. What have I accomplished since the previous meeting?
+- Not much, just practicing android studio (am on vacation)
 
 2. What will I finish before the next meeting?
+- Start on my user story. 
 
 3. What challenges / questions / concerns am I currently facing?
 
