@@ -60,14 +60,13 @@
             android:maxWidth="488dp"
             android:minHeight="48dp" />
 
-        <AutoCompleteTextView
+        <Spinner
             android:id="@+id/editCategory"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:width="488dp"
-            android:dropDownWidth="wrap_content"
-            android:dropDownHeight="200dp"
-            android:hint="@string/category" />
+            android:dropDownWidth="200dp"
+            android:entries="@array/categories"
+            android:minWidth="488dp" />
 
         <TextView
             android:id="@+id/periodHeader"

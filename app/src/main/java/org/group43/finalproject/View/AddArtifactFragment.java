@@ -31,7 +31,7 @@ public class AddArtifactFragment extends Fragment {
     private EditText editLotNum;
     private EditText editName;
     private EditText editDesc;
-    private AutoCompleteTextView editCategory;
+    private Spinner editCategory;
     private Spinner editPeriod;
     private TextView textFileName;
 
@@ -51,7 +51,6 @@ public class AddArtifactFragment extends Fragment {
 
         initializeView(view);
         initializeToolbar();
-        initializeCategoryMenu();
 
         uploadButton.setOnClickListener(v -> chooseFile());
         addButton.setOnClickListener(v -> addArtifactPresenter.addArtifact(fileUri));
@@ -91,18 +90,6 @@ public class AddArtifactFragment extends Fragment {
         addArtifactToolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    public void initializeCategoryMenu() {
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this.requireContext(),
-                android.R.layout.simple_dropdown_item_1line, CategoryModel.getInstance().getCategories());
-        editCategory.setAdapter(categoryAdapter);
-
-        editCategory.setOnTouchListener((view, motionEvent) -> {
-            editCategory.showDropDown();
-            return false;
-        });
-    }
-
     public void chooseFile() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("*/*");
@@ -137,7 +124,7 @@ public class AddArtifactFragment extends Fragment {
         return editName;
     }
 
-    public AutoCompleteTextView getEditCategory() {
+    public Spinner getEditCategory() {
         return editCategory;
     }
 

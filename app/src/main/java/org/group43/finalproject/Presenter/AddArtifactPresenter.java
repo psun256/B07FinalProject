@@ -50,7 +50,6 @@ public class AddArtifactPresenter {
     public void clearArtifact() {
         view.getEditLotNum().getText().clear();
         view.getEditName().getText().clear();
-        view.getEditCategory().getText().clear();
         view.getEditDesc().getText().clear();
         view.getTextFileName().setText("");
         view.getTextFileName().setHint(view.getResources().getString(R.string.defaultFile));
@@ -121,7 +120,7 @@ public class AddArtifactPresenter {
     private Artifact createArtifact(Uri fileUri) {
         int lotNum = Integer.parseInt(view.getEditLotNum().getText().toString().trim());
         String name = view.getEditName().getText().toString().trim();
-        String category = view.getEditCategory().getText().toString().trim();
+        String category = view.getEditCategory().getSelectedItem().toString().trim();
         String period = view.getEditPeriod().getSelectedItem().toString().trim();
         String desc = view.getEditDesc().getText().toString().trim();
         String fileName = view.getTextFileName().getText().toString().trim();
@@ -143,7 +142,6 @@ public class AddArtifactPresenter {
     private boolean checkEmptyFields() {
         if (view.getEditLotNum().getText().toString().trim().isEmpty() ||
                 view.getEditName().getText().toString().trim().isEmpty() ||
-                view.getEditCategory().getText().toString().trim().isEmpty() ||
                 view.getEditDesc().getText().toString().trim().isEmpty()) {
             view.showMessage("Please fill out all fields!");
             return false;
