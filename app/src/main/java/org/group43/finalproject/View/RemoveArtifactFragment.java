@@ -28,44 +28,37 @@ public class RemoveArtifactFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        removePresenter = new RemoveArtifactPresenter(getContext());
+        removePresenter = new RemoveArtifactPresenter(getContext(), new RemoveArtifactPresenter.RemovalListener() {
+            @Override
+            public void onRemovalComplete() {
+                navigateBack();
+            }
+
+            @Override
+            public void onRemovalFailed() {
+                navigateBack();
+            }
+        });
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_remove_artifact, container, false);
-        Button removeButton = view.findViewById(R.id.btnRemoveArtifact);
 
-        initializeView(view);
-        initializeToolbar();
-
-        removeButton.setOnClickListener(v -> {
-            removePresenter.confirmAndRemove();
-        });
+        removePresenter.confirmAndRemove();
 
         return view;
     }
 
-    private void initializeView(View view) {
-        removeArtifactToolbar = view.findViewById(R.id.removeArtifactToolbar);
-    }
 
-    private void initializeToolbar() {
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        if (activity != null) {
-            activity.setSupportActionBar(removeArtifactToolbar);
-            Objects.requireNonNull(activity.getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-            activity.getSupportActionBar().setHomeButtonEnabled(true);
-
-            if (removeArtifactToolbar.getNavigationIcon() != null) {
-                int color = ContextCompat.getColor(requireContext(), R.color.backgroundLight);
-                removeArtifactToolbar.getNavigationIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            }
-
-            removeArtifactToolbar.setNavigationOnClickListener(v -> activity.onBackPressed());
+    private void navigateBack() {
+        if (getActivity() != null) {
+            getActivity().onBackPressed();
         }
-
     }
+
+
+
 }
 
